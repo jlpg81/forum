@@ -1,7 +1,11 @@
 <% include partials/header %>
 
-<p>hi</p>
+<p>Listado de miembros</p>
 
-var current_user = <%- user %>
+<ul>
+	<% contact.forEach(function (contact) { %>
+		<%= contact.firstName %> 
+	<% }) %>
+</ul>
 
 <% include partials/footer %>

@@ -28,7 +28,7 @@ export const getContacts = (req, res) => {
         // res.render('members')
         // console.log(contact);
         // res.send(contact[0].firstName);
-        res.send(contact);
+        res.render('members', {contact});
     });
 };
 

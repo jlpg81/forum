@@ -1,5 +1,13 @@
 code from members.ejs
 
+<ul>
+    <%= contact %>
+</ul>
+
+
+
+
+
 
 <ul>
 	<% for(var i = 0; i = members.length; i++) {>
