@@ -3,69 +3,37 @@ import {
     getContacts, 
     getContactWithID, 
     updateContact,
-    deleteContact,
-    Contacts
+    deleteContact
 } from '../controllers/controller';
-// import express from "express";
-// const router = express.Router();
-import ContactSchema from '../models/model';
+
 
 const routes = (app) => {
-    // app.get('/members', (req, res) => {
-        // let members = [
-        //     {
-        //         id : "1",
-        //         firstName : "Jorge",
-        //         lastName : "Perez"
-        //     },
-        //     {
-        //         id : "2",
-        //         firstName : "Cat",
-        //         lastName : "Nunez"
-        //     }
-        // ]; 
-        // res.render('members',{ContactSchema}
-    //     res.json(contact)
-    // });
-    
-    // app.get((req, res, next) => {
-    //     // middleware
-    //     console.log(`Request from: ${req.originalUrl}`)
-    //     console.log(`Request type: ${req.method}`)
-    //     next();
-    // }, getContacts)
 
-    app.route('/contact')
-    .get((req, res, next) => {
-        // middleware
-        console.log(`Request from: ${req.originalUrl}`)
-        console.log(`Request type: ${req.method}`)
-        next();
-    }, getContacts)
-
-    // POST endpoint
+    app.route('/contact').get((req, res, next) => {getContacts});
     app.route('/members').get(getContacts);
     app.get('/register', (req, res) => res.render('register'));
-    app.route('/register').post(addNewContact);
-    // app.route('/members2').get(getContacts);
-    app.get('/members2', (req, res) => res.render('members'));
-    // const Contact = mongoose.model('Contact', ContactSchema);
-    // import Contact from 
-    // app.get('/members', (req, res) => {
-    //     var cursor = Contacts.find();
-    //     console.log("reading..");
-    //     console.log(cursor)
-    // })
+    app.route('/register').post(addNewContact);    
+    app.get('/forum', (req, res) => res.render('forum'));
+    app.get('/dashboard', (req, res) => res.render('dashboard'));
+    app.get('/chat', (req, res) => res.render('chat'));
 
-    app.route('/members/:memberid')
     // get specific contact
-    .get(getContactWithID)
+    app.route('/members/:id').get(getContactWithID);
     
     // put request
-    .put(updateContact)
+    app.route('/members/:id').post(updateContact);
+    // app.route('/members/:id').put(updateContact);
 
     // delete request
-    .delete(deleteContact);
+    // En vez de borrar usuarios se les reducira el nivel a 0 y se eliminaran de las listas de miembros, sin embargo
+    // seguiran estando activos en la base de datos hasta que se proceda a su eliminacion manual, despues de un tiempo
+    // minimo (3 meses, 1 ano, etc.)
+    // app.route('/members/:id').delete(deleteContact);
+
+    // 404
+    // app.get('*', function(req, res){
+    //     res.status(404).send('Were sorry, this page does not exist.');
+    // });    
 }
 
 export default routes;

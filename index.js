@@ -16,31 +16,18 @@ mongoose.connect('mongodb://localhost/mlvdb', {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//initializing app
 routes(app);
 
-// serving static files
-// app.use(express.static('public'));
+// Ejs setup
 app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs');
-app.get('/', (req, res) => {
-//     let members = [
-//         {
-//             id : "1",
-//             firstName : "Jorge",
-//             lastName : "Perez"
-//         },
-//         {
-//             id : "2",
-//             firstName : "Cat",
-//             lastName : "Nunez"
-//         }
-//     ]
-// });
 
-// app.get('/', (req, res) => { 
+app.get('/', (req, res) => {
     res.render('index')
 });
 
+// Listening on a port
 app.listen(PORT, () =>
     console.log(`your server is running on port ${PORT}`)
 );

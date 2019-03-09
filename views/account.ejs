@@ -1,0 +1,25 @@
+<% include partials/header %>
+
+<p>Aqui esta la cuenta personal.</p>
+
+<style>
+p {
+ display: inline-block;
+}
+</style>
+
+
+<form method="POST">
+    <p>Nombre: </p><input type="text" name=firstName value=<%= contact.firstName %>>
+    <p>Apellido: </p><input type="text" name=lastName value=<%= contact.lastName %>><br>
+    <p>Email: </p><input type="text" name=email value=<%= contact.email %>>
+    <p>Estado: </p><input type="text" name=state value=<%= contact.state %>><br>
+    <p>Nivel: </p><input type="text" value=<%= contact.status %>>
+    <input type="submit" value="Modificar">
+</form>
+
+
+<a href="/members">Regresar al listado de miembros</a>
+
+
+<% include partials/footer %>

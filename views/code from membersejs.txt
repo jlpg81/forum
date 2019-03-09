@@ -1,9 +1,10 @@
 code from members.ejs
 
 <ul>
-    <%= contact %>
+	<% contact.forEach(function (contact) { %>
+		<%= contact.firstName %> 
+	<% }) %>
 </ul>
-
 
 
 

@@ -2,10 +2,33 @@
 
 <p>Listado de miembros</p>
 
-<ul>
-	<% contact.forEach(function (contact) { %>
-		<%= contact.firstName %> 
-	<% }) %>
-</ul>
+<style type="text/css">
+	table.tableizer-table {
+		font-size: 12px;
+		border: 1px solid #CCC; 
+		font-family: Arial, Helvetica, sans-serif;
+	} 
+	.tableizer-table td {
+		padding: 4px;
+		margin: 3px;
+		border: 1px solid #CCC;
+	}
+	.tableizer-table th {
+		background-color: #104E8B; 
+		color: #FFF;
+		font-weight: bold;
+	}
+</style>
+
+<table class="tableizer-table">
+<thead><tr class="tableizer-firstrow"><th>Select</th><th>ID</th><th>Nombre</th><th>Apellido</th><th>Email</th><th>Pais</th><th>Estado</th><th>Nivel</th><th>Fecha de Ingreso</th></tr></thead><tbody>
+<% contact.forEach(function (contact) { %>
+<tr><td><a href="./members/<%= contact._id %>">Modificar</a></td><td><%= contact._id %> </td><td><%= contact.firstName %> </td><td><%= contact.lastName %></td><td><%= contact.email %></td><td><%= contact.country %></td><td><%= contact.state %></td><td><%= contact.security_level %></td><td><%= contact.created_date %></td>
+<% }) %>
+</tbody>
+</table>
+
+
+<p><a href="/dashboard">Haz click aqui para regresar a tu espacio personal.</a></p>
 
 <% include partials/footer %>

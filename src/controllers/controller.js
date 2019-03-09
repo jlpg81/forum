@@ -9,44 +9,52 @@ export const addNewContact = (req, res) => {
         if (err) {
             res.send(err);
         }
-        // res.json(contact);
-        // res.send('Form submitted')
         res.render('Success')
     });
 };
-
-// export const getContacts = (req, res) => {
-//     Contact.find().toArray(function(err, results) {
-//         console.log(results)
-//     })};
 
 export const getContacts = (req, res) => {
     Contact.find({}, (err, contact) => {
         if (err) {
             res.send(err);
         }
-        // res.render('members')
-        // console.log(contact);
-        // res.send(contact[0].firstName);
         res.render('members', {contact});
     });
 };
 
 export const getContactWithID = (req, res) => {
-    Contact.findById(req.params.contactId, (err, contact) => {
+    Contact.findById(req.params.id, (err, contact) => {
         if (err) {
             res.send(err);
         }
-        res.json(contact);
+        res.render('account', {contact});
     });
 }
 
+// export const getContactWithId = (req, res, id) => {
+//     Contact.findById(id, (err, contact) => {
+//         if (err) {
+//             res.send(err);
+//         }
+//         res.send('account', {contact});
+//     });
+// };
+
+// export const getContactWithID = (req, res) => {
+//     Contact.findById(req.params.contactId, (err, contact) => {
+//         if (err) {
+//             res.send(err);
+//         }
+//         res.json(contact);
+//     });
+// }
+
 export const updateContact = (req, res) => {
-    Contact.findOneAndUpdate({ _id: req.params.contactId}, req.body, { new: true }, (err, contact) => {
+    Contact.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: false }, (err, contact) => {
         if (err) {
             res.send(err);
         }
-        res.json(contact);
+        res.render('updated');
     })
 }
 
