@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
-import routes from './src/routes/route';
+import helmet from 'helmet';
+import routes from './routes/route';
 
 const app = express();
 const PORT = 3000;
@@ -13,8 +13,9 @@ mongoose.connect('mongodb://localhost/mlvdb', {
 });
 
 // bodyparser setup
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(helmet());
 
 //initializing app
 routes(app);
