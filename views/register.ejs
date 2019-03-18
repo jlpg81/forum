@@ -1,13 +1,12 @@
-<% include partials/header %>
-<h2>Formulario de Afiliación</h2>
+<h1>Formulario de registro</h1>
 
-<p>Llenar este formulario te llevará poco minutos y nos permitirá conocerte un poco. Al finalizar, un miembro se encargará de hacerte una pequeña entrevista y posteriormente pasará a formalizar tu ingreso.</p>
-<form method="POST">
+<form action="/register" method="POST">
+    <input type="text" name="username" placeholder="Email">
+    <input type="text" name="password" placeholder="Password"><br>
     <input type="text" name="firstName" placeholder="Nombre">
     <input type="text" name="lastName" placeholder="Apellido"><br>
-    <input type="email" name="email" placeholder="Email">
-    <input type="text" name="state" placeholder="Estado"><br>
-    <!-- <input type="number" placeholder="Ano de nacimiento">
+    <input type="text" name="country" placeholder="Pais"><br>
+        <!-- <input type="number" placeholder="Ano de nacimiento">
     <input type="text" placeholder="Profesion/Oficio/Ocupación"><br>
     <input type="text" placeholder="Telefono de contacto">
     <input type="url" placeholder="Facebook/Twitter (Link)"><br>
@@ -21,7 +20,5 @@
         <option value="Otro">Otro</option>
     </select>
     <input type="text" placeholder="Has participado en otras organizaciones?"><br> -->
-    <input type="submit" value="Registrarse">
+    <button>Registrarse</button>
 </form>
-
-<% include partials/footer %>

@@ -1,0 +1,13 @@
+<% include partials/header %>
+
+<h1>Main Page</h1>
+
+<form action="/login" method="POST">
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password">
+    <button>Entrar</button>
+</form>
+
+<p>No eres miembro todavia? <a href="/register">Registrate aqui!</a></p>
+
+<% include partials/footer %>

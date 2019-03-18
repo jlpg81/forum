@@ -22,8 +22,8 @@
 
 <table class="tableizer-table">
 <thead><tr class="tableizer-firstrow"><th>Select</th><th>ID</th><th>Nombre</th><th>Apellido</th><th>Email</th><th>Pais</th><th>Estado</th><th>Nivel</th><th>Fecha de Ingreso</th></tr></thead><tbody>
-<% contact.forEach(function (contact) { %>
-<tr><td><a href="./members/<%= contact._id %>">Modificar</a></td><td><%= contact._id %> </td><td><%= contact.firstName %> </td><td><%= contact.lastName %></td><td><%= contact.email %></td><td><%= contact.country %></td><td><%= contact.state %></td><td><%= contact.security_level %></td><td><%= contact.created_date %></td>
+<% User.forEach(function (User) { %>
+<tr><td><a href="./members/<%= User._id %>">Modificar</a></td><td><%= User._id %> </td><td><%= User.firstName %> </td><td><%= User.lastName %></td><td><%= User.username %></td><td><%= User.country %></td><td><%= User.state %></td><td><%= User.level %></td><td><%= User.created_date %></td>
 <% }) %>
 </tbody>
 </table>
