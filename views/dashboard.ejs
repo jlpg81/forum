@@ -2,9 +2,12 @@
 
 <p>Bienvenido a tu espacio personal</p>
 
-<p><a href="/members">Click aqui para ver la lista de miembros.</a></p>
+<% if (loggedUser && loggedUser.level===0) { %>
+    <p><a href="/admin">Click aqui para acceder al portal de coordinadores.</a></p>
+<% } %>
+
 <p><a href="/forum">Click aqui para ver el foro.</a></p>
-<p><a href="">Click aqui para acceder al chat en linea.</a></p>
+<p><a href="/chat">Click aqui para acceder al chat en linea.</a></p>
 <p><a href="/logout">Cerrar sesion.</a></p>
 
 

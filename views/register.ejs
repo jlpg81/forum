@@ -1,11 +1,38 @@
 <h1>Formulario de registro</h1>
 
 <form action="/register" method="POST">
-    <input type="text" name="username" placeholder="Email">
-    <input type="text" name="password" placeholder="Password"><br>
-    <input type="text" name="firstName" placeholder="Nombre">
-    <input type="text" name="lastName" placeholder="Apellido"><br>
-    <input type="text" name="country" placeholder="Pais"><br>
+    <label for="">Usuario:
+        <input type="text" name="username" placeholder="Usuario">
+    </label>
+    <label for="">Email:
+        <input type="text" name="email" placeholder="Email"><br>
+    </label>
+    <label for="">Clave:
+        <input type="text" id="password" name="password" placeholder="Clave" onkeyup='check()'>
+    </label>
+    <label for="">Clave:
+        <input type="text" id="confirm_password" name="confirm_password" placeholder="Repita su clave" onkeyup='check()'>
+    </label><br>
+    <label for="">Nombre:
+        <input type="text" name="firstName" placeholder="Nombre">
+    </label>
+    <label for="">Apellido:
+        <input type="text" name="lastName" placeholder="Apellido">
+    </label><br>
+    <label for="">Pais:
+        <input type="text" name="country" placeholder="Pais">
+    </label>
+    <span id='message'></span>
+
+    <!-- <label>password :
+        <input name="password" id="password" type="password" onkeyup='check();' />
+    </label>
+    <br>
+    <label>confirm password:
+        <input type="password" name="confirm_password" id="confirm_password"  onkeyup='check();' /> 
+        <span id='message'></span>
+    </label> -->
+
         <!-- <input type="number" placeholder="Ano de nacimiento">
     <input type="text" placeholder="Profesion/Oficio/Ocupación"><br>
     <input type="text" placeholder="Telefono de contacto">
@@ -20,5 +47,9 @@
         <option value="Otro">Otro</option>
     </select>
     <input type="text" placeholder="Has participado en otras organizaciones?"><br> -->
-    <button>Registrarse</button>
+    <br><button>Registrarse</button>
+
+<br>
+<a href="/">Atras</a>
+
 </form>

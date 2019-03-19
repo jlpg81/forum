@@ -37,13 +37,18 @@ app.get('/', function(req, res){
     res.render('home');
 });
 
+app.get('/denied', function(req, res){
+    res.render('denied');
+});
+
 app.get('/register', function(req, res){
     res.render('register');
 });
 
 app.post('/register', function(req, res){
     User.register(new User({
-        username: req.body.username, 
+        username: req.body.username,
+        email: req.body.email, 
         firstName: req.body.firstName, 
         lastName: req.body.lastName,
         country: req.body.country}), 
@@ -62,27 +67,25 @@ app.get('/success', function(req, res){
     res.render('success');
 });
 
-app.get('/login', function(req, res){
-    res.render('login');
-});
-
 app.post('/login', passport.authenticate('local', {
     successRedirect: "/dashboard",
     failureRedirect: "/"
 }),function(req, res){
 });
 
-app.get('/dashboard', isLoggedIn, function(req, res){
-    res.render('dashboard')
-});
-
-// app.get('/secret', isLoggedIn, function(req, res){
-//     res.render('secret')
+// app.get('/dashboard', isLoggedIn, function(req, res){
+//     res.send(req.user)
 // });
 
-app.get('account')
+app.get('/dashboard', isLoggedIn, function(req, res){
+    res.render('dashboard', { loggedUser : req.user })
+});
 
-app.get('/members', function(req, res){
+app.get('/admin', isAdmin, function(req, res){
+    res.render('admin', { loggedUser : req.user })
+});
+
+app.get('/admin/members', isAdmin, function(req, res){
     User.find({}, (err, User) => {
         if (err) {
             res.send(err);
@@ -91,7 +94,7 @@ app.get('/members', function(req, res){
     })
 });
 
-app.get('/members/:id', function(req,res){
+app.get('/admin/members/:id', isAdmin, function(req,res){
     User.findById(req.params.id, (err, User) => {
         if (err) {
             res.send(err);
@@ -99,7 +102,7 @@ app.get('/members/:id', function(req,res){
         res.render('account', {User})});
 });
 
-app.post('/members/:id', function (req, res){
+app.post('/admin/members/:id', isAdmin, function (req, res){
     User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: false }, (err, User) => {
         if (err) {
             res.send(err);
@@ -108,8 +111,13 @@ app.post('/members/:id', function (req, res){
     })
 });
 
-app.get('/forum', (req, res) => res.render('forum'));
-app.get('/chat', (req, res) => res.render('chat'));
+app.get('/forum', isUser, function(req, res){
+    res.render('forum')
+});
+
+app.get('/chat', isUser, function(req, res){
+    res.render('chat')
+});
 
 app.get('/logout', function(req, res){
     req.logout();
@@ -121,7 +129,33 @@ function isLoggedIn(req, res, next){
         return next();
     }
     res.redirect('/')
-}
+};
+
+function isUser(req, res, next){
+    if(req.user.level>=0){
+        return next();
+    }
+    res.redirect('/denied')
+};
+
+function isAdmin(req, res, next){
+    if(req.user.level>=0){
+        return next();
+    }
+    res.redirect('/denied')
+};
+
+function isIT(req, res, next){
+    if(req.user.level>=0){
+        return next();
+    }
+    res.redirect('/denied')
+};
+// function authLevel(req, res, next){
+
+// };
+
+// code to check passwords is in: http://jsfiddle.net/aelor/F6sEv/324/
 
 //Server setup
 app.listen(PORT, () =>
