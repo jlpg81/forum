@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+
+
+<div> 
+    <br>
+    <%= Post.title %> <br>
+    <span>Por: </span><%= Post.creator %> <span>Actualizado: </span> <%= Post.lastDateUpdated %>
+    <br>
+
+        <%= Post.comments %>
+
+
+</div> 
+
+    
+
+<% include ../partials/footer %>

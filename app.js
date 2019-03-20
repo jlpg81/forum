@@ -2,7 +2,9 @@ const   express                 = require('express'),
         mongoose                = require('mongoose'),
         passport                = require('passport'),
         LocalStrategy           = require('passport-local'),
-        User                    = require('./models/user');
+        User                    = require('./models/user'),
+        Post                    = require('./models/post'),
+        Comment                 = require('./models/comment');
 
 var PORT = 3002;
 
@@ -48,7 +50,7 @@ app.get('/register', function(req, res){
 app.post('/register', function(req, res){
     User.register(new User({
         username: req.body.username,
-        email: req.body.email, 
+        nickname: req.body.nickname, 
         firstName: req.body.firstName, 
         lastName: req.body.lastName,
         country: req.body.country}), 
@@ -99,7 +101,7 @@ app.get('/admin/members/:id', isAdmin, function(req,res){
         if (err) {
             res.send(err);
         }
-        res.render('account', {User})});
+        res.render('account', {User} )});
 });
 
 app.post('/admin/members/:id', isAdmin, function (req, res){
@@ -113,6 +115,55 @@ app.post('/admin/members/:id', isAdmin, function (req, res){
 
 app.get('/forum', isUser, function(req, res){
     res.render('forum')
+});
+
+app.get('/forum/general', isUser, function(req, res){
+    Post.find({}, (err, Post) => {
+        User.find({}, (err, User)=> {
+            res.render('forum/general', {Post, User})
+        })
+    })
+});
+
+app.get('/forum/general_new', isUser, function(req, res){
+    res.render('forum/general_new')
+});
+
+app.post('/forum/general_new', isUser, function(req, res){
+    Post.create({
+        title: req.body.title,
+        section: "general",
+        creator: req.user.nickname,
+        lastUserUpdated: req.user.nickname,
+        lastDateUpdated: req.body.lastDateUpdated,
+        comments: [{
+            userid: req.user.nickname,
+            content: req.body.content,
+            commentDate: req.body.lastDateUpdated}],
+        function (err, Post){
+            if (err) {
+                res.send(err)
+            }}
+    }, res.redirect('general'))
+});
+
+
+app.get('/forum/general/:id', isUser, function(req, res){
+    Post.findById({ _id: req.params.id }, (err, Post)=>{
+        if (err){
+            console.log(err)
+        }
+        res.render('forum/posts', {Post})
+    })
+});
+
+app.post('/admin/members/:id', isAdmin, function (req, res){
+    User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: false }, (err, User) => {
+        if (err) {
+            res.send(err);
+        }
+        res.render('updated');
+    })
 });
 
 app.get('/chat', isUser, function(req, res){

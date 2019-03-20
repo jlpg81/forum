@@ -4,15 +4,15 @@ const   mongoose                = require('mongoose'),
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        // required: 'Por favor escriba su nombre de usuario'
+        // required: 'Por favor escriba su email'
     },
     password: {
         type: String,
         // required: 'Por favor escriba una clave'
     },
-    email: {
+    nickname: {
         type: String,
-        // required: 'Por favor escriba su email'
+        // required: 'Por favor escriba una clave'
     },
     firstName: {
         type: String,

@@ -1,0 +1,18 @@
+<% include ../partials/header %>
+
+<p>Here is the general forum.</p>
+
+<a href="/forum/general_new">Nuevo Post</a> <br>
+
+
+<% Post.forEach(function (Post) { %>
+<a href="/forum/general/<%= Post._id %>"> 
+<div> 
+    <br>
+    <%= Post.title %> </a> <br>
+    <span>Por: </span><%= Post.creator %> <span>Actualizado: </span> <%= Post.lastDateUpdated %>
+    <br>
+</div> 
+<% }) %>
+
+<% include ../partials/footer %>
