@@ -10,9 +10,7 @@ var PORT = 3002;
 
 //Mongoose Setup
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/forum3", {
-    useMongoClient: true
-});
+mongoose.connect("mongodb://localhost/forum3", { useNewUrlParser: true });
 
 //Express setup
 const app = express();
@@ -113,49 +111,121 @@ app.post('/admin/members/:id', isAdmin, function (req, res){
     })
 });
 
+///////////////////////////////////////////////////////////////////////
+//      FFFFF    OOO    RRRRR   UU  UU   MM       MM
+//      FF      OO OO   RR RR   UU  UU   MM MM MM MM
+//      FFFF    OO OO   RRR     UU  UU   MM   MM  MM
+//      FF       OOO    RR RR    UUUU    MM       MM
+/////////////////////////////////////////////////////////////////////////
+
 app.get('/forum', isUser, function(req, res){
     res.render('forum')
 });
 
 app.get('/forum/general', isUser, function(req, res){
     Post.find({}, (err, Post) => {
-        User.find({}, (err, User)=> {
-            res.render('forum/general', {Post, User})
-        })
+        res.render('forum/general', {Post, User})
     })
 });
+
+// app.get('/forum/general', isUser, function(req, res){
+//     Post.find({}, (err, Post) => {
+//         User.find({}, (err, User)=> {
+//             res.render('forum/general', {Post, User})
+//         })
+//     })
+// });
+//to verify: i think we dont need to pass the users collection here. Posts should already have that user
+//information in them.
 
 app.get('/forum/general_new', isUser, function(req, res){
     res.render('forum/general_new')
 });
+
+// app.post('/forum/general_new', isUser, function(req, res){
+//     Post.create({
+//         title: req.body.title,
+//         section: "general",
+//         creator: req.user.nickname,
+//         lastUserUpdated: req.user.nickname,
+//         lastDateUpdated: req.body.lastDateUpdated,
+//         // comment: req.body.comment,
+//         function (err, Post){
+//             if (err) {
+//                 res.send(err)
+//             }}
+//     }, res.redirect('general'))
+// });
 
 app.post('/forum/general_new', isUser, function(req, res){
     Post.create({
         title: req.body.title,
         section: "general",
         creator: req.user.nickname,
-        lastUserUpdated: req.user.nickname,
-        lastDateUpdated: req.body.lastDateUpdated,
-        comments: [{
-            userid: req.user.nickname,
-            content: req.body.content,
-            commentDate: req.body.lastDateUpdated}],
-        function (err, Post){
-            if (err) {
-                res.send(err)
-            }}
+        // lastUserUpdated: req.user.nickname,
+        comment: req.body.comment,
+        children: [],
+        function (err, Post){if (err) {res.send(err)} else {} }
     }, res.redirect('general'))
 });
+
+// app.post('/forum/general_new', isUser, function(req, res, next){
+//     Comment.create({
+//         creator: req.user.nickname,
+//         comment: req.body.comment,
+//         function(err, comment){Post.create({
+//             title: req.body.title,
+//             section: "general",
+//             creator: req.user.nickname,
+//             lastUserUpdated: req.user.nickname,
+//             lastDateUpdated: req.body.lastDateUpdated,
+//             children: comment._id,
+//             function (err, Post){if (err){}{console.log(req.body)} }
+//         }, res.redirect('general'))
+//     }
+//     })
+// });
+
+//general_new post needs to create the post itself, as well as a comment, then attach the comment to the post as an 
+//id object(the same way every other comment would attach).
+//let us first try to make a standard post that accepts only 1 line of comments, and later introduce the possibility for
+//comments to have comments themselves.
 
 
 app.get('/forum/general/:id', isUser, function(req, res){
     Post.findById({ _id: req.params.id }, (err, Post)=>{
         if (err){
             console.log(err)
+        } else {
+            Comment.find({}, (err, Comment)=>{
+                res.render('forum/posts', {Post, Comment})
+            })
         }
-        res.render('forum/posts', {Post})
     })
 });
+
+
+app.post('/forum/general/:id', isUser, function(req, res){
+    Comment.create({
+        comment: req.body.comment,
+        creator: req.user.nickname
+        }, function(err, comment){
+        Post.findById({_id: req.params.id}, function(err,foundPost){
+            foundPost.children.push(comment._id);
+            foundPost.save(function(err,data){
+                if (err){
+                    console.log(err)
+                } else {
+                    res.redirect('back')
+                }
+            })
+        })
+    })
+});
+
+
+
+/////////////////////////////////////
 
 app.post('/admin/members/:id', isAdmin, function (req, res){
     User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: false }, (err, User) => {

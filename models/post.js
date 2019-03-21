@@ -13,9 +13,14 @@ const postSchema = new mongoose.Schema({
         type: String,
         // required: True
     },
-    comments: {
+    comment: {
         type: String,
+        // required: True
     },
+    children: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    }],
     dateCreated: {
         type: Date,
         default: Date.now 

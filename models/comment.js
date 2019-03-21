@@ -1,13 +1,17 @@
 const   mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
-    userid: {
+    creator: {
         type: String,
         // required: True
     },
-    content: {
+    comment: {
         type: String,
         // required: True
+    },
+    children: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
     },
     commentDate: {
         type: Date,
