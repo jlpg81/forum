@@ -122,15 +122,83 @@ app.get('/forum', isUser, function(req, res){
     res.render('forum')
 });
 
-app.get('/forum/general', isUser, function(req, res){
+// Main forum routes
+
+// app.get('/forum/general', isUser, function(req, res){
+//     Post.find({}, (err, Post) => {
+//         res.render('forum/general', {Post, User})
+//     })
+// });
+
+// app.get('/forum/activismo', isUser, function(req, res){
+//     Post.find({}, (err, Post) => {
+//         res.render('forum/activismo', {Post, User})
+//     })
+// });
+
+// app.get('/forum/libertarismo', isUser, function(req, res){
+//     Post.find({}, (err, Post) => {
+//         res.render('forum/libertarismo', {Post, User})
+//     })
+// });
+
+// app.get('/forum/formacion', isUser, function(req, res){
+//     Post.find({}, (err, Post) => {
+//         res.render('forum/formacion', {Post, User})
+//     })
+// });
+
+// app.get('/forum/proyectos', isUser, function(req, res){
+//     Post.find({}, (err, Post) => {
+//         res.render('forum/proyectos', {Post, User})
+//     })
+// });
+
+// app.get('/forum/voluntariado', isUser, function(req, res){
+//     Post.find({}, (err, Post) => {
+//         res.render('forum/voluntariado', {Post, User})
+//     })
+// });
+
+// app.get('/forum/sugerencias', isUser, function(req, res){
+//     Post.find({}, (err, Post) => {
+//         res.render('forum/sugerencias', {Post, User})
+//     })
+// });
+
+// app.get('/forum/intranet', isUser, function(req, res){
+//     Post.find({}, (err, Post) => {
+//         res.render('forum/intranet', {Post, User})
+//     })
+// });
+
+// app.get('/forum/offtopic', isUser, function(req, res){
+//     Post.find({}, (err, Post) => {
+//         res.render('forum/offtopic', {Post, User})
+//     })
+// });
+
+// app.get('/forum/offtopic', isUser, function(req, res){
+//     Post.find({}, (err, Post) => {
+//         res.render('forum/offtopic', {Post, User})
+//     })s
+// });
+
+app.get('/forum/:id', isUser, function(req, res){
     Post.find({}, (err, Post) => {
-        res.render('forum/general', {Post, User})
+        res.render('forum/'+req.params.id, {Post, User})
     })
 });
 
-app.get('/forum/general_new', isUser, function(req, res){
-    res.render('forum/general_new')
-});
+
+// Routes creating new posts
+
+
+// routes to post
+
+// app.get('/forum/:id', isUser, function(req, res){
+//     res.render('forum/:id')
+// });
 
 app.post('/forum/general_new', isUser, function(req, res){
     Post.create({
@@ -143,6 +211,104 @@ app.post('/forum/general_new', isUser, function(req, res){
         function (err, Post){if (err) {res.send(err)} else {} }
     }, res.redirect('general'))
 });
+
+app.post('/forum/activismo_new', isUser, function(req, res){
+    Post.create({
+        title: req.body.title,
+        section: "activismo",
+        creator: req.user.nickname,
+        // lastUserUpdated: req.user.nickname,
+        comment: req.body.comment,
+        children: [],
+        function (err, Post){if (err) {res.send(err)} else {} }
+    }, res.redirect('activismo'))
+});
+
+app.post('/forum/libertarimo_new', isUser, function(req, res){
+    Post.create({
+        title: req.body.title,
+        section: "libertarimo",
+        creator: req.user.nickname,
+        // lastUserUpdated: req.user.nickname,
+        comment: req.body.comment,
+        children: [],
+        function (err, Post){if (err) {res.send(err)} else {} }
+    }, res.redirect('libertarimo'))
+});
+
+app.post('/forum/formacion_new', isUser, function(req, res){
+    Post.create({
+        title: req.body.title,
+        section: "formacion",
+        creator: req.user.nickname,
+        // lastUserUpdated: req.user.nickname,
+        comment: req.body.comment,
+        children: [],
+        function (err, Post){if (err) {res.send(err)} else {} }
+    }, res.redirect('formacion'))
+});
+
+app.post('/forum/proyectos_new', isUser, function(req, res){
+    Post.create({
+        title: req.body.title,
+        section: "proyectos",
+        creator: req.user.nickname,
+        // lastUserUpdated: req.user.nickname,
+        comment: req.body.comment,
+        children: [],
+        function (err, Post){if (err) {res.send(err)} else {} }
+    }, res.redirect('proyectos'))
+});
+
+app.post('/forum/voluntariado_new', isUser, function(req, res){
+    Post.create({
+        title: req.body.title,
+        section: "voluntariado",
+        creator: req.user.nickname,
+        // lastUserUpdated: req.user.nickname,
+        comment: req.body.comment,
+        children: [],
+        function (err, Post){if (err) {res.send(err)} else {} }
+    }, res.redirect('voluntariado'))
+});
+
+app.post('/forum/sugerencias_new', isUser, function(req, res){
+    Post.create({
+        title: req.body.title,
+        section: "sugerencias",
+        creator: req.user.nickname,
+        // lastUserUpdated: req.user.nickname,
+        comment: req.body.comment,
+        children: [],
+        function (err, Post){if (err) {res.send(err)} else {} }
+    }, res.redirect('sugerencias'))
+});
+
+app.post('/forum/intranet_new', isUser, function(req, res){
+    Post.create({
+        title: req.body.title,
+        section: "intranet",
+        creator: req.user.nickname,
+        // lastUserUpdated: req.user.nickname,
+        comment: req.body.comment,
+        children: [],
+        function (err, Post){if (err) {res.send(err)} else {} }
+    }, res.redirect('intranet'))
+});
+
+app.post('/forum/offtopic_new', isUser, function(req, res){
+    Post.create({
+        title: req.body.title,
+        section: "offtopic",
+        creator: req.user.nickname,
+        // lastUserUpdated: req.user.nickname,
+        comment: req.body.comment,
+        children: [],
+        function (err, Post){if (err) {res.send(err)} else {} }
+    }, res.redirect('offtopic'))
+});
+
+
 
 app.get('/forum/general/:id', isUser, function(req, res){
     Post.findById({ _id: req.params.id }, (err, Post)=>{
@@ -226,6 +392,7 @@ function isIT(req, res, next){
 // };
 
 // code to check passwords is in: http://jsfiddle.net/aelor/F6sEv/324/
+
 
 //Server setup
 app.listen(PORT, () =>
