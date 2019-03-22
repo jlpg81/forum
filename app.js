@@ -128,34 +128,9 @@ app.get('/forum/general', isUser, function(req, res){
     })
 });
 
-// app.get('/forum/general', isUser, function(req, res){
-//     Post.find({}, (err, Post) => {
-//         User.find({}, (err, User)=> {
-//             res.render('forum/general', {Post, User})
-//         })
-//     })
-// });
-//to verify: i think we dont need to pass the users collection here. Posts should already have that user
-//information in them.
-
 app.get('/forum/general_new', isUser, function(req, res){
     res.render('forum/general_new')
 });
-
-// app.post('/forum/general_new', isUser, function(req, res){
-//     Post.create({
-//         title: req.body.title,
-//         section: "general",
-//         creator: req.user.nickname,
-//         lastUserUpdated: req.user.nickname,
-//         lastDateUpdated: req.body.lastDateUpdated,
-//         // comment: req.body.comment,
-//         function (err, Post){
-//             if (err) {
-//                 res.send(err)
-//             }}
-//     }, res.redirect('general'))
-// });
 
 app.post('/forum/general_new', isUser, function(req, res){
     Post.create({
@@ -169,29 +144,6 @@ app.post('/forum/general_new', isUser, function(req, res){
     }, res.redirect('general'))
 });
 
-// app.post('/forum/general_new', isUser, function(req, res, next){
-//     Comment.create({
-//         creator: req.user.nickname,
-//         comment: req.body.comment,
-//         function(err, comment){Post.create({
-//             title: req.body.title,
-//             section: "general",
-//             creator: req.user.nickname,
-//             lastUserUpdated: req.user.nickname,
-//             lastDateUpdated: req.body.lastDateUpdated,
-//             children: comment._id,
-//             function (err, Post){if (err){}{console.log(req.body)} }
-//         }, res.redirect('general'))
-//     }
-//     })
-// });
-
-//general_new post needs to create the post itself, as well as a comment, then attach the comment to the post as an 
-//id object(the same way every other comment would attach).
-//let us first try to make a standard post that accepts only 1 line of comments, and later introduce the possibility for
-//comments to have comments themselves.
-
-
 app.get('/forum/general/:id', isUser, function(req, res){
     Post.findById({ _id: req.params.id }, (err, Post)=>{
         if (err){
@@ -203,7 +155,6 @@ app.get('/forum/general/:id', isUser, function(req, res){
         }
     })
 });
-
 
 app.post('/forum/general/:id', isUser, function(req, res){
     Comment.create({
@@ -223,9 +174,7 @@ app.post('/forum/general/:id', isUser, function(req, res){
     })
 });
 
-
-
-/////////////////////////////////////
+///////////////////////////////////// End of forum routes
 
 app.post('/admin/members/:id', isAdmin, function (req, res){
     User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: false }, (err, User) => {
