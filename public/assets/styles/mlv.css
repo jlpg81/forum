@@ -1,0 +1,132 @@
+body,
+.ui.cards>.card>.content>.header,
+.ui.card>.content>.header,
+.ui.statistics .statistic>.value,
+.ui.statistic>.value,
+.ui.statistics .statistic>.label,
+.ui.statistic>.label,
+.ui.accordion .title:not(.ui),
+.ui.modal>.header,
+.ui.popup>.header,
+.ui.search>.results .result .title,
+.ui.search>.results>.message .header,
+.ui.category.search>.results .category>.name,
+.ui.items>.item>.content>.header,
+.ui.list .list>.item .header,
+.ui.list>.item .header,
+.ui.steps .step .title,
+.ui.ordered.steps .step:before,
+.ui.text.container,
+.ui.form input:not([type]),
+.ui.form input[type="date"],
+.ui.form input[type="datetime-local"],
+.ui.form input[type="email"],
+.ui.form input[type="number"],
+.ui.form input[type="password"],
+.ui.form input[type="search"],
+.ui.form input[type="tel"],
+.ui.form input[type="time"],
+.ui.form input[type="text"],
+.ui.form input[type="file"],
+.ui.form input[type="url"],
+.ui.input>input,
+.ui.header,
+.ui.message .header,
+.ui.sortable.table thead th:after,
+.ui.menu,
+.ui.button,
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
+	font-family: Convergence, Lato,'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+body.pushable.mlv>.pusher {
+	background-color: #efefef;
+}
+body.login.mlv {
+	background: #e3e1e1 !important;
+    background: -webkit-linear-gradient(to right, #DADADA, #e3e1e1) !important;
+    background: linear-gradient(to left, #DADADA, #e3e1e1) !important;
+}
+body.signup.mlv {
+	background-color: #1b1c1d !important;
+}
+main {
+	padding-bottom: 4em !important;
+}
+main#login-main {
+	padding-bottom: 0 !important;
+}
+
+#userchange-main h2 {
+	font-size: 3em;
+}
+
+abbr,
+abbr[title] {
+	cursor: pointer;
+	font-variant: none !important;
+	text-decoration: none !important;
+}
+
+#signup-main h2.header {
+	font-size: 2em;
+	color: #fff;
+}
+
+#password-container {
+	display: none;
+}
+#password-container,
+#username-container {
+	min-height: 425px;
+}
+
+main#login-main,
+main#userchange-main {
+	height: 100%;
+}
+	#login-main>.column,
+	#userchange-main>.column {
+		max-width: 450px;
+	}
+
+#header-logo {
+	width: 50px;
+}
+
+.ui.steps>.step>.icons {
+	margin: 0 1rem 0 0;
+	font-size: 2.5em;
+}
+
+#signup-segment {
+	width: 60%;
+}
+
+#login-main h2.ui.header {
+    font-size: 2rem;
+}
+
+.ui.fluid.search.dropdown.sm-fixed {
+	min-width: 110px !important;
+}
+
+#datePicker input {
+	cursor: pointer;
+}
+
+
+#header-menu,
+#header-right {
+	cursor: pointer;
+}
+
+#referrer-field,
+#sm-field {
+	display: none;
+}

@@ -2,6 +2,7 @@ const   express                 = require('express'),
         mongoose                = require('mongoose'),
         passport                = require('passport'),
         LocalStrategy           = require('passport-local'),
+        methodOverride          = require('method-override'),
         User                    = require('./models/user'),
         Post                    = require('./models/post'),
         Comment                 = require('./models/comment');
@@ -28,6 +29,10 @@ app.use(express.urlencoded({ extended: true }));
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+//Other setup
+app.use(methodOverride("_method"));
+app.use(express.static("public"));
 
 //========
 // Routes
@@ -124,208 +129,164 @@ app.get('/forum', isUser, function(req, res){
 
 // Main forum routes
 
-// app.get('/forum/general', isUser, function(req, res){
-//     Post.find({}, (err, Post) => {
-//         res.render('forum/general', {Post, User})
-//     })
-// });
-
-// app.get('/forum/activismo', isUser, function(req, res){
-//     Post.find({}, (err, Post) => {
-//         res.render('forum/activismo', {Post, User})
-//     })
-// });
-
-// app.get('/forum/libertarismo', isUser, function(req, res){
-//     Post.find({}, (err, Post) => {
-//         res.render('forum/libertarismo', {Post, User})
-//     })
-// });
-
-// app.get('/forum/formacion', isUser, function(req, res){
-//     Post.find({}, (err, Post) => {
-//         res.render('forum/formacion', {Post, User})
-//     })
-// });
-
-// app.get('/forum/proyectos', isUser, function(req, res){
-//     Post.find({}, (err, Post) => {
-//         res.render('forum/proyectos', {Post, User})
-//     })
-// });
-
-// app.get('/forum/voluntariado', isUser, function(req, res){
-//     Post.find({}, (err, Post) => {
-//         res.render('forum/voluntariado', {Post, User})
-//     })
-// });
-
-// app.get('/forum/sugerencias', isUser, function(req, res){
-//     Post.find({}, (err, Post) => {
-//         res.render('forum/sugerencias', {Post, User})
-//     })
-// });
-
-// app.get('/forum/intranet', isUser, function(req, res){
-//     Post.find({}, (err, Post) => {
-//         res.render('forum/intranet', {Post, User})
-//     })
-// });
-
-// app.get('/forum/offtopic', isUser, function(req, res){
-//     Post.find({}, (err, Post) => {
-//         res.render('forum/offtopic', {Post, User})
-//     })
-// });
-
-// app.get('/forum/offtopic', isUser, function(req, res){
-//     Post.find({}, (err, Post) => {
-//         res.render('forum/offtopic', {Post, User})
-//     })s
-// });
-
-app.get('/forum/:id', isUser, function(req, res){
-    Post.find({}, (err, Post) => {
-        res.render('forum/'+req.params.id, {Post, User})
+app.get('/forum/:section', isUser, function(req, res){
+    Post.find({ section: req.params.section}, (err, Post) => {
+        res.render('forum/'+req.params.section, {Post, User})
     })
 });
 
+// Route creating new posts
 
-// Routes creating new posts
 
+app.get('/forum/:section/new', isUser, function(req, res){
+    res.render('forum/new')
+});
 
-// routes to post
+// routes to send new post info to server
 
-// app.get('/forum/:id', isUser, function(req, res){
-//     res.render('forum/:id')
+app.post('/forum/:section/new', isUser, function(req, res){
+    Post.create({
+        title: req.body.title,
+        section: req.params.section,
+        creator: req.user.nickname,
+        // lastUserUpdated: req.user.nickname,
+        comment: req.body.comment,
+        children: [],
+        function (err, Post){if (err) {res.send(err)} else {} }
+    }, res.redirect('/forum/'+req.params.section))
+});
+
+// Route to view posts
+
+// este codigo por alguna razon me da un error al entrar a forum/:section...
+//{ CastError: Cast to ObjectId failed for value "mlv.js" at path "_id" for model "Post"
+// app.get('/forum/:section/:id', isUser, function(req, res){
+//     Post.find({ _id: req.params.id, section: req.params.section }, (err, Post)=>{
+//         if (err){
+//             console.log(err)
+//         } else {
+//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
+//                 res.render('forum/posts', {Post, Comment})
+//             })
+//         }
+//     })
 // });
-
-app.post('/forum/general_new', isUser, function(req, res){
-    Post.create({
-        title: req.body.title,
-        section: "general",
-        creator: req.user.nickname,
-        // lastUserUpdated: req.user.nickname,
-        comment: req.body.comment,
-        children: [],
-        function (err, Post){if (err) {res.send(err)} else {} }
-    }, res.redirect('general'))
-});
-
-app.post('/forum/activismo_new', isUser, function(req, res){
-    Post.create({
-        title: req.body.title,
-        section: "activismo",
-        creator: req.user.nickname,
-        // lastUserUpdated: req.user.nickname,
-        comment: req.body.comment,
-        children: [],
-        function (err, Post){if (err) {res.send(err)} else {} }
-    }, res.redirect('activismo'))
-});
-
-app.post('/forum/libertarimo_new', isUser, function(req, res){
-    Post.create({
-        title: req.body.title,
-        section: "libertarimo",
-        creator: req.user.nickname,
-        // lastUserUpdated: req.user.nickname,
-        comment: req.body.comment,
-        children: [],
-        function (err, Post){if (err) {res.send(err)} else {} }
-    }, res.redirect('libertarimo'))
-});
-
-app.post('/forum/formacion_new', isUser, function(req, res){
-    Post.create({
-        title: req.body.title,
-        section: "formacion",
-        creator: req.user.nickname,
-        // lastUserUpdated: req.user.nickname,
-        comment: req.body.comment,
-        children: [],
-        function (err, Post){if (err) {res.send(err)} else {} }
-    }, res.redirect('formacion'))
-});
-
-app.post('/forum/proyectos_new', isUser, function(req, res){
-    Post.create({
-        title: req.body.title,
-        section: "proyectos",
-        creator: req.user.nickname,
-        // lastUserUpdated: req.user.nickname,
-        comment: req.body.comment,
-        children: [],
-        function (err, Post){if (err) {res.send(err)} else {} }
-    }, res.redirect('proyectos'))
-});
-
-app.post('/forum/voluntariado_new', isUser, function(req, res){
-    Post.create({
-        title: req.body.title,
-        section: "voluntariado",
-        creator: req.user.nickname,
-        // lastUserUpdated: req.user.nickname,
-        comment: req.body.comment,
-        children: [],
-        function (err, Post){if (err) {res.send(err)} else {} }
-    }, res.redirect('voluntariado'))
-});
-
-app.post('/forum/sugerencias_new', isUser, function(req, res){
-    Post.create({
-        title: req.body.title,
-        section: "sugerencias",
-        creator: req.user.nickname,
-        // lastUserUpdated: req.user.nickname,
-        comment: req.body.comment,
-        children: [],
-        function (err, Post){if (err) {res.send(err)} else {} }
-    }, res.redirect('sugerencias'))
-});
-
-app.post('/forum/intranet_new', isUser, function(req, res){
-    Post.create({
-        title: req.body.title,
-        section: "intranet",
-        creator: req.user.nickname,
-        // lastUserUpdated: req.user.nickname,
-        comment: req.body.comment,
-        children: [],
-        function (err, Post){if (err) {res.send(err)} else {} }
-    }, res.redirect('intranet'))
-});
-
-app.post('/forum/offtopic_new', isUser, function(req, res){
-    Post.create({
-        title: req.body.title,
-        section: "offtopic",
-        creator: req.user.nickname,
-        // lastUserUpdated: req.user.nickname,
-        comment: req.body.comment,
-        children: [],
-        function (err, Post){if (err) {res.send(err)} else {} }
-    }, res.redirect('offtopic'))
-});
-
-
 
 app.get('/forum/general/:id', isUser, function(req, res){
     Post.findById({ _id: req.params.id }, (err, Post)=>{
         if (err){
             console.log(err)
         } else {
-            Comment.find({}, (err, Comment)=>{
+            Comment.find({ parent: req.params.id }, (err, Comment)=>{
                 res.render('forum/posts', {Post, Comment})
             })
         }
     })
 });
 
-app.post('/forum/general/:id', isUser, function(req, res){
+app.get('/forum/activismo/:id', isUser, function(req, res){
+    Post.findById({ _id: req.params.id }, (err, Post)=>{
+        if (err){
+            console.log(err)
+        } else {
+            Comment.find({ parent: req.params.id }, (err, Comment)=>{
+                res.render('forum/posts', {Post, Comment})
+            })
+        }
+    })
+});
+
+app.get('/forum/libertarimo/:id', isUser, function(req, res){
+    Post.findById({ _id: req.params.id }, (err, Post)=>{
+        if (err){
+            console.log(err)
+        } else {
+            Comment.find({ parent: req.params.id }, (err, Comment)=>{
+                res.render('forum/posts', {Post, Comment})
+            })
+        }
+    })
+});
+
+app.get('/forum/formacion/:id', isUser, function(req, res){
+    Post.findById({ _id: req.params.id }, (err, Post)=>{
+        if (err){
+            console.log(err)
+        } else {
+            Comment.find({ parent: req.params.id }, (err, Comment)=>{
+                res.render('forum/posts', {Post, Comment})
+            })
+        }
+    })
+});
+
+app.get('/forum/proyectos/:id', isUser, function(req, res){
+    Post.findById({ _id: req.params.id }, (err, Post)=>{
+        if (err){
+            console.log(err)
+        } else {
+            Comment.find({ parent: req.params.id }, (err, Comment)=>{
+                res.render('forum/posts', {Post, Comment})
+            })
+        }
+    })
+});
+
+app.get('/forum/voluntariado/:id', isUser, function(req, res){
+    Post.findById({ _id: req.params.id }, (err, Post)=>{
+        if (err){
+            console.log(err)
+        } else {
+            Comment.find({ parent: req.params.id }, (err, Comment)=>{
+                res.render('forum/posts', {Post, Comment})
+            })
+        }
+    })
+});
+
+app.get('/forum/sugerencias/:id', isUser, function(req, res){
+    Post.findById({ _id: req.params.id }, (err, Post)=>{
+        if (err){
+            console.log(err)
+        } else {
+            Comment.find({ parent: req.params.id }, (err, Comment)=>{
+                res.render('forum/posts', {Post, Comment})
+            })
+        }
+    })
+});
+
+app.get('/forum/intranet/:id', isUser, function(req, res){
+    Post.findById({ _id: req.params.id }, (err, Post)=>{
+        if (err){
+            console.log(err)
+        } else {
+            Comment.find({ parent: req.params.id }, (err, Comment)=>{
+                res.render('forum/posts', {Post, Comment})
+            })
+        }
+    })
+});
+
+app.get('/forum/offtopic/:id', isUser, function(req, res){
+    Post.findById({ _id: req.params.id }, (err, Post)=>{
+        if (err){
+            console.log(err)
+        } else {
+            Comment.find({ parent: req.params.id }, (err, Comment)=>{
+                res.render('forum/posts', {Post, Comment})
+            })
+        }
+    })
+});
+
+// Route to post a new comment
+
+app.post('/forum/:section/:id', isUser, function(req, res){
     Comment.create({
         comment: req.body.comment,
-        creator: req.user.nickname
+        creator: req.user.nickname,
+        parent: req.params.id,
         }, function(err, comment){
         Post.findById({_id: req.params.id}, function(err,foundPost){
             foundPost.children.push(comment._id);

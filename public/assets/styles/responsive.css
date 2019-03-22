@@ -1,0 +1,12 @@
+@media only screen and (max-width: 768px) {
+	#page-title,
+	#header-right {
+		display: none;
+	}
+	#header-logo {
+		width: 65px;
+	}
+	#signup-segment {
+		width: 100%;
+	}
+}

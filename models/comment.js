@@ -13,6 +13,10 @@ const commentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
     },
+    parent:{
+        type: String,
+        // required: True
+    },
     commentDate: {
         type: Date,
         default: Date.now 

@@ -1,13 +1,23 @@
 <% include partials/header %>
 
-<h1>Main Page</h1>
+<div class="ui raised padded text container segment">
+    <h1 class="">Bienvenido a la libertad.</h1>
+    <form action="/login" method="POST" class="ui form">        
+        <div class="field">
+            <label>Email</label>
+            <input type="text" name="username" placeholder="Username">
+        </div>
+        <div class="field">
+            <label>Contrasena</label>
+            <input type="password" name="password" placeholder="Password">
+        </div>
+        <button class="ui primary button fluid very padded">Entrar</button>
+        <div class="ui very padded two column centered grid">
+            <span class="">No eres miembro todavia? <a href="/register">Registrate aqui!</a></span>
+        </div>
+    </form>
+</div>
 
-<form action="/login" method="POST">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <button>Entrar</button>
-</form>
 
-<p>No eres miembro todavia? <a href="/register">Registrate aqui!</a></p>
 
 <% include partials/footer %>
