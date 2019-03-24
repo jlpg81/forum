@@ -1,14 +1,22 @@
 button{
     /* border: 10px !important; */
-    margin: 10O0px !important;
-};
+    margin: 10px 0 !important;
+}
 
 .Site {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-};
-  
+}
+
 .Site-content {
     flex: 1;
+}
+
+/* #loginbox{
+    width: 30%;
+} */
+
+.logoh{
+    width: 50px;
 }
