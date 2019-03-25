@@ -1,14 +1,52 @@
 <% include partials/header %>
 
-<p>Bienvenido a tu espacio personal</p>
+<style>
+p{
+    font-size: 150%
+}
+</style>
 
-<% if (loggedUser && loggedUser.level===0) { %>
-    <p><a href="/admin">Click aqui para acceder al portal de coordinadores.</a></p>
-<% } %>
+<div class="ui container">
+    <h1 class="title">Espacio personal</h1>
+    <div class="ui centered grid">
+        <div class="row">
+            <a href="/admin">
+                <div class="ui raised two wide column segment" id="dashicon">
+                    <i class="id card outline icon massive"></i> <br><br>
+                    <p>Datos personales</p>
+                </div>
+            </a>
+            <a href="/forum">
+                <div class="ui raised two wide column segment" id="dashicon">
+                    <i class="bullhorn icon massive"></i> <br><br>
+                    <p class="ui padded">Foro</p>
+                </div>
+            </a>
+            <a href="/chat">
+                <div class="ui raised two wide column segment" id="dashicon">
+                    <i class="comment alternate icon massive"></i> <br><br>
+                    <p>Chat</p>
+                </div>
+            </a>
+        </div>
+    </div>
 
-<p><a href="/forum">Click aqui para ver el foro.</a></p>
-<p><a href="/chat">Click aqui para acceder al chat en linea.</a></p>
-<p><a href="/logout">Cerrar sesion.</a></p>
 
+    <% if (loggedUser && loggedUser.level===0) { %>
+    <h1 class="title">Coordinadores</h1>    
+
+    <div class="ui centered grid" >
+        <div class="row" >
+            <a href="/admin/members" id="dashicon">
+                <div class="ui raised two wide column segment">
+                    <i class="key icon massive floated"></i> <br><br>
+                    <p>Listado de<br>Miembros</p> 
+                </div>
+            </a>
+        </div>
+    </div>
+    <% } %>
+    <br><br><br>
+</div>
 
 <% include partials/footer %>

@@ -1,19 +1,30 @@
 <% include ../partials/header %>
 
-<p>Here is the general forum.</p>
-
-<a href="/forum/general/new">Nuevo Post</a> <br>
-
+<div class="ui container">
+    <div class="ui breadcrumb">
+        <a href="/dashboard" class="section">Menu principal</a>
+        <i class="right angle icon divider"></i>
+        <a href="/forum" class="section">Foro</a>
+        <i class="right angle icon divider"></i>
+        <div class="active section">General</div>
+    </div>
+    <h1>Foro General</h1>
+    <a href="/forum/general/new">
+        <button class="ui primary button very padded">Nuevo Post</button>
+    </a>
+</div><br>
 
 <% Post.forEach(function (Post) { %>
-<a href="/forum/general/<%= Post._id %>"> 
-<div> 
-    <br>
-    <%= Post.title %> </a> <br>
-    <span>Por: </span><%= Post.creator %> <span>Actualizado: </span> <%= Post.lastDateUpdated %> <br>
-    <%= Post.comment %>
-    <br>
-</div> 
+<div class="ui container">    
+    <div class="ui segment padded raised"> 
+        <a href="/forum/general/<%= Post._id %>">
+        <h3><%= Post.title %></h3>
+        <strong><span>Creado por: &nbsp;</span></strong><%= Post.creator %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <strong><span>Fecha: &nbsp;</span></strong> <%= Post.lastDateUpdated %> <br><br>
+        <%= Post.comment %>
+        <br>
+    </div> 
+</div></a>
 <% }) %>
 
 <% include ../partials/footer %>

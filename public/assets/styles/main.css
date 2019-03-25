@@ -20,3 +20,20 @@ button{
 .logoh{
     width: 50px;
 }
+
+#dashicon{
+    margin: 10px;
+    width: 200px;
+}
+
+#forumicon{
+    margin: 10px;
+}
+
+#backicon{
+    margin: 100px 100px !important;
+}
+
+a{
+    color: black;
+}
