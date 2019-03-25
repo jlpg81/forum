@@ -139,7 +139,7 @@ app.get('/forum/:section', isUser, function(req, res){
 
 
 app.get('/forum/:section/new', isUser, function(req, res){
-    res.render('forum/new')
+    res.render('forum/new', {Section: capitalizeFirstLetter(req.params.section), section: req.params.section })
 });
 
 // routes to send new post info to server
@@ -172,113 +172,125 @@ app.post('/forum/:section/new', isUser, function(req, res){
 //     })
 // });
 
-app.get('/forum/general/:id', isUser, function(req, res){
+app.get('/forum/:section/:id', isUser, function(req, res){
     Post.findById({ _id: req.params.id }, (err, Post)=>{
         if (err){
             console.log(err)
         } else {
             Comment.find({ parent: req.params.id }, (err, Comment)=>{
-                res.render('forum/posts', {Post, Comment})
+                res.render('forum/posts', {Post, Comment, Section: capitalizeFirstLetter(req.params.section), section: req.params.section})
             })
         }
     })
 });
 
-app.get('/forum/activismo/:id', isUser, function(req, res){
-    Post.findById({ _id: req.params.id }, (err, Post)=>{
-        if (err){
-            console.log(err)
-        } else {
-            Comment.find({ parent: req.params.id }, (err, Comment)=>{
-                res.render('forum/posts', {Post, Comment})
-            })
-        }
-    })
-});
+// app.get('/forum/general/:id', isUser, function(req, res){
+//     Post.findById({ _id: req.params.id }, (err, Post)=>{
+//         if (err){
+//             console.log(err)
+//         } else {
+//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
+//                 res.render('forum/posts', {Post, Comment})
+//             })
+//         }
+//     })
+// });
 
-app.get('/forum/libertarimo/:id', isUser, function(req, res){
-    Post.findById({ _id: req.params.id }, (err, Post)=>{
-        if (err){
-            console.log(err)
-        } else {
-            Comment.find({ parent: req.params.id }, (err, Comment)=>{
-                res.render('forum/posts', {Post, Comment})
-            })
-        }
-    })
-});
+// app.get('/forum/activismo/:id', isUser, function(req, res){
+//     Post.findById({ _id: req.params.id }, (err, Post)=>{
+//         if (err){
+//             console.log(err)
+//         } else {
+//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
+//                 res.render('forum/posts', {Post, Comment})
+//             })
+//         }
+//     })
+// });
 
-app.get('/forum/formacion/:id', isUser, function(req, res){
-    Post.findById({ _id: req.params.id }, (err, Post)=>{
-        if (err){
-            console.log(err)
-        } else {
-            Comment.find({ parent: req.params.id }, (err, Comment)=>{
-                res.render('forum/posts', {Post, Comment})
-            })
-        }
-    })
-});
+// app.get('/forum/libertarimo/:id', isUser, function(req, res){
+//     Post.findById({ _id: req.params.id }, (err, Post)=>{
+//         if (err){
+//             console.log(err)
+//         } else {
+//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
+//                 res.render('forum/posts', {Post, Comment})
+//             })
+//         }
+//     })
+// });
 
-app.get('/forum/proyectos/:id', isUser, function(req, res){
-    Post.findById({ _id: req.params.id }, (err, Post)=>{
-        if (err){
-            console.log(err)
-        } else {
-            Comment.find({ parent: req.params.id }, (err, Comment)=>{
-                res.render('forum/posts', {Post, Comment})
-            })
-        }
-    })
-});
+// app.get('/forum/formacion/:id', isUser, function(req, res){
+//     Post.findById({ _id: req.params.id }, (err, Post)=>{
+//         if (err){
+//             console.log(err)
+//         } else {
+//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
+//                 res.render('forum/posts', {Post, Comment})
+//             })
+//         }
+//     })
+// });
 
-app.get('/forum/voluntariado/:id', isUser, function(req, res){
-    Post.findById({ _id: req.params.id }, (err, Post)=>{
-        if (err){
-            console.log(err)
-        } else {
-            Comment.find({ parent: req.params.id }, (err, Comment)=>{
-                res.render('forum/posts', {Post, Comment})
-            })
-        }
-    })
-});
+// app.get('/forum/proyectos/:id', isUser, function(req, res){
+//     Post.findById({ _id: req.params.id }, (err, Post)=>{
+//         if (err){
+//             console.log(err)
+//         } else {
+//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
+//                 res.render('forum/posts', {Post, Comment})
+//             })
+//         }
+//     })
+// });
 
-app.get('/forum/sugerencias/:id', isUser, function(req, res){
-    Post.findById({ _id: req.params.id }, (err, Post)=>{
-        if (err){
-            console.log(err)
-        } else {
-            Comment.find({ parent: req.params.id }, (err, Comment)=>{
-                res.render('forum/posts', {Post, Comment})
-            })
-        }
-    })
-});
+// app.get('/forum/voluntariado/:id', isUser, function(req, res){
+//     Post.findById({ _id: req.params.id }, (err, Post)=>{
+//         if (err){
+//             console.log(err)
+//         } else {
+//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
+//                 res.render('forum/posts', {Post, Comment})
+//             })
+//         }
+//     })
+// });
 
-app.get('/forum/intranet/:id', isUser, function(req, res){
-    Post.findById({ _id: req.params.id }, (err, Post)=>{
-        if (err){
-            console.log(err)
-        } else {
-            Comment.find({ parent: req.params.id }, (err, Comment)=>{
-                res.render('forum/posts', {Post, Comment})
-            })
-        }
-    })
-});
+// app.get('/forum/sugerencias/:id', isUser, function(req, res){
+//     Post.findById({ _id: req.params.id }, (err, Post)=>{
+//         if (err){
+//             console.log(err)
+//         } else {
+//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
+//                 res.render('forum/posts', {Post, Comment})
+//             })
+//         }
+//     })
+// });
 
-app.get('/forum/offtopic/:id', isUser, function(req, res){
-    Post.findById({ _id: req.params.id }, (err, Post)=>{
-        if (err){
-            console.log(err)
-        } else {
-            Comment.find({ parent: req.params.id }, (err, Comment)=>{
-                res.render('forum/posts', {Post, Comment})
-            })
-        }
-    })
-});
+// app.get('/forum/intranet/:id', isUser, function(req, res){
+//     Post.findById({ _id: req.params.id }, (err, Post)=>{
+//         if (err){
+//             console.log(err)
+//         } else {
+//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
+//                 res.render('forum/posts', {Post, Comment})
+//             })
+//         }
+//     })
+// });
+
+// app.get('/forum/offtopic/:id', isUser, function(req, res){
+//     Post.findById({ _id: req.params.id }, (err, Post)=>{
+//         if (err){
+//             console.log(err)
+//         } else {
+//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
+//                 res.render('forum/posts', {Post, Comment})
+//             })
+//         }
+//     })
+// });
 
 // Route to post a new comment
 
@@ -348,9 +360,10 @@ function isIT(req, res, next){
     }
     res.redirect('/denied')
 };
-// function authLevel(req, res, next){
 
-// };
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 // code to check passwords is in: http://jsfiddle.net/aelor/F6sEv/324/
 

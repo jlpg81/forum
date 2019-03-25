@@ -1,32 +1,43 @@
 <% include ../partials/header %>
 
-<a href="../">Regresar al Foro</a>
-<div> 
+<div class="ui container">
+    <div class="ui breadcrumb">
+        <a href="/dashboard" class="section">Menu principal</a>
+        <i class="right angle icon divider"></i>
+        <a href="/forum" class="section">Foro</a>
+        <i class="right angle icon divider"></i>
+        <a href="/forum/<%= section %>" class="section"><%= Section %></a>
+        <i class="right angle icon divider"></i>
+        <div class="active section"><%= Post.title %></div>
+    </div>
+    <div> 
+        <br>
+        <h1><%= Post.title %></h1>
+        <strong><span>Creado por: &nbsp;</strong></span><%= Post.creator %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <strong><span>Fecha: &nbsp;</span></strong> <%= Post.lastDateUpdated %> <br>
+        <br>
+        <%= Post.comment %>
+    </div> 
+    <% Comment.forEach(function (result) { %>
+        <div> 
+            <br><hr><br>
+            <strong><span>Comentario por: &nbsp;</strong></span><%= result.creator %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <strong><span>Fecha: &nbsp;</span></strong> <%= result.commentDate %> <br><br>
+            <%= result.comment %> <br>
+        </div>
+    <% }) %>
     <br>
-    <%= Post.title %> <br>
-    <span>Por: </span><%= Post.nickname %> <span>Actualizado: </span> <%= Post.lastDateUpdated %>
-    <br>
-    <%= Post.comment %>
-</div> 
-
-
-<div>
-    <form action="" method="POST">
-        <textarea name="comment" id="" cols="30" rows="10"></textarea>
-        <button>Enviar</button>
-    </form>
+    <div class="ui form">
+        <form action="" method="POST">
+            <textarea name="comment" id="" cols="30" rows="10" required></textarea>
+            <button class="ui primary button">Enviar</button>
+        </form>
+    </div>
 </div>
 
 
-<% Comment.forEach(function (result) { %>
-    <div> 
-        <br>
-            <span>Por: <%= result.creator %></span> <span>Fecha: <%= result.commentDate %></span> <br>
-            
-            <%= result.comment %> <br>
-    
-            <br>
-        </div> 
-<% }) %>
+
+
+
 
 <% include ../partials/footer %>

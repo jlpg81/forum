@@ -1,7 +1,5 @@
 <% include partials/header %>
 
-<p>Listado de miembros</p>
-
 <style type="text/css">
 	table.tableizer-table {
 		font-size: 12px;
@@ -20,15 +18,21 @@
 	}
 </style>
 
-<table class="tableizer-table">
-<thead><tr class="tableizer-firstrow"><th>Select</th><th>ID</th><th>Email</th><th>Apodo</th><th>Nombre</th><th>Apellido</th><th>Email</th><th>Pais</th><th>Estado</th><th>Nivel</th><th>Fecha de Ingreso</th></tr></thead><tbody>
-<% User.forEach(function (User) { %>
-<tr><td><a href="./members/<%= User._id %>">Modificar</a></td><td><%= User._id %></td><td><%= User.username %></td><td><%= User.nickname %></td><td><%= User.firstName %> </td><td><%= User.lastName %></td><td><%= User.username %></td><td><%= User.country %></td><td><%= User.state %></td><td><%= User.level %></td><td><%= User.created_date %></td>
-<% }) %>
-</tbody>
-</table>
+<div class="ui container">
+	<h1>Listado de miembros</h1>
+	
+	<table class="tableizer-table">
+	<thead><tr class="tableizer-firstrow"><th>Select</th><th>ID</th><th>Email</th><th>Apodo</th><th>Nombre</th><th>Apellido</th><th>Email</th><th>Pais</th><th>Estado</th><th>Nivel</th><th>Fecha de Ingreso</th></tr></thead><tbody>
+	<% User.forEach(function (User) { %>
+	<tr><td><a href="./members/<%= User._id %>">Modificar</a></td><td><%= User._id %></td><td><%= User.username %></td><td><%= User.nickname %></td><td><%= User.firstName %> </td><td><%= User.lastName %></td><td><%= User.username %></td><td><%= User.country %></td><td><%= User.state %></td><td><%= User.level %></td><td><%= User.created_date %></td>
+	<% }) %>
+	</tbody>
+	</table>
+	
+	
+	<a href="/dashboard"><button class="ui button">Haz click aqui para regresar a tu espacio personal.</button></a>
+</div>
 
 
-<p><a href="/dashboard">Haz click aqui para regresar a tu espacio personal.</a></p>
 
 <% include partials/footer %>

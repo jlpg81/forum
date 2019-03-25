@@ -1,6 +1,6 @@
 <% include partials/header %>
 
-<p>Aqui esta la cuenta personal.</p>
+
 
 <style>
 p {
@@ -8,19 +8,26 @@ p {
 }
 </style>
 
-<%= User.firstName %>
-<form method="POST">
-    <p>Nombre: </p><input type="text" name=firstName value=<%= User.firstName %>>
-    <p>Apellido: </p><input type="text" name=lastName value=<%= User.lastName %>><br>
-    <p>Email: </p><input type="text" name=username value=<%= User.username %>>
-    <p>Pais: </p><input type="text" name=country value=<%= User.country %>><br>
-    <p>Estado: </p><input type="text" name=state value=<%= User.state %>>
-    <p>Nivel: </p><input type="text" value=<%= User.level %>><br>
-    <input type="submit" value="Modificar">
-</form>
+
+<div class="ui container">
+    <h3>Informacion personal de: <%= User.firstName %> <%= User.lastName %></h3>
+    <div class="ui form">
+        <form method="POST">
+            <p>Nombre: </p><input type="text" name=firstName value=<%= User.firstName %>>
+            <p>Apellido: </p><input type="text" name=lastName value=<%= User.lastName %>><br>
+            <p>Email: </p><input type="text" name=username value=<%= User.username %>>
+            <p>Pais: </p><input type="text" name=country value=<%= User.country %>><br>
+            <p>Estado: </p><input type="text" name=state value=<%= User.state %>>
+            <p>Nivel: </p><input type="text" value=<%= User.level %>><br>
+            <button class="ui primary button">Modificar</button>
+        </form>
+    </div>
+    <a href="/admin/members"><button class="ui button">Regresar</button></a>
+</div>
 
 
-<a href="/members">Regresar al listado de miembros</a>
+
+
 
 
 <% include partials/footer %>

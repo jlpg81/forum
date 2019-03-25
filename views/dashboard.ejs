@@ -1,7 +1,7 @@
 <% include partials/header %>
 
 <style>
-p{
+span{
     font-size: 150%
 }
 </style>
@@ -13,19 +13,19 @@ p{
             <a href="/admin">
                 <div class="ui raised two wide column segment" id="dashicon">
                     <i class="id card outline icon massive"></i> <br><br>
-                    <p>Datos personales</p>
+                    <span>Datos personales</span>
                 </div>
             </a>
             <a href="/forum">
                 <div class="ui raised two wide column segment" id="dashicon">
                     <i class="bullhorn icon massive"></i> <br><br>
-                    <p class="ui padded">Foro</p>
+                    <span>Foro</span>
                 </div>
             </a>
             <a href="/chat">
                 <div class="ui raised two wide column segment" id="dashicon">
                     <i class="comment alternate icon massive"></i> <br><br>
-                    <p>Chat</p>
+                    <span>Chat</span>
                 </div>
             </a>
         </div>
@@ -40,13 +40,12 @@ p{
             <a href="/admin/members" id="dashicon">
                 <div class="ui raised two wide column segment">
                     <i class="key icon massive floated"></i> <br><br>
-                    <p>Listado de<br>Miembros</p> 
+                    <span>Listado de<br>Miembros</span> 
                 </div>
             </a>
         </div>
     </div>
     <% } %>
-    <br><br><br>
 </div>
 
 <% include partials/footer %>
