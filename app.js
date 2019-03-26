@@ -56,7 +56,16 @@ app.post('/register', function(req, res){
         nickname: req.body.nickname, 
         firstName: req.body.firstName, 
         lastName: req.body.lastName,
-        country: req.body.country}), 
+        country: req.body.country,
+        state: req.body.state,
+        nacimiento: req.body.nacimiento,
+        profesion: req.body.profesion,
+        redSocial1: req.body.redSocial1,
+        redSocial2: req.body.redSocial2,
+        cedula: req.body.cedula,
+        ideologia: req.body.ideologia,
+        otras: req.body.otras,
+        }), 
         req.body.password, function(err, user){
         if(err){
             console.log(err);
@@ -331,6 +340,23 @@ app.get('/chat', isUser, function(req, res){
 app.get('/logout', function(req, res){
     req.logout();
     res.redirect('/')
+});
+
+app.get('/:user', isLoggedIn, function(req, res){
+    User.findById(req.user._id, (err, User) => {
+        if (err) {
+            res.send(err);
+        }
+        res.render('account', {User} )});
+});
+
+app.post('/:user', isLoggedIn, function(req, res){
+    User.findByIdAndUpdate({ _id: req.user._id }, req.body, { new: false }, (err, User) => {
+        if (err) {
+            res.send(err);
+        }
+        res.render('updated');
+    })
 });
 
 function isLoggedIn(req, res, next){

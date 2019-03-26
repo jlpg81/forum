@@ -4,29 +4,45 @@ const   mongoose                = require('mongoose'),
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
-        // required: 'Por favor escriba su email'
     },
     password: {
         type: String,
-        // required: 'Por favor escriba una clave'
     },
     nickname: {
         type: String,
-        // required: 'Por favor escriba una clave'
     },
     firstName: {
         type: String,
-        default: "nombre"
-        // required: 'Escriba su nombre'
     },
     lastName: {
         type: String,
-        default: "apellido"
-        // required: 'Escriba su apellido'
     },
     country: {
         type: String,
-        // required: 'Escriba su pais de residencia actual' 
+    },
+    state: {
+        type: String,
+    },
+    nacimiento: {
+        type: String,
+    },
+    profesion: {
+        type: String,
+    },
+    redSocial1: {
+        type: String,
+    },
+    redSocial2: {
+        type: String,
+    },
+    cedula: {
+        type: String,
+    },
+    ideologia: {
+        type: String,
+    },
+    otras: {
+        type: String,
     },
     created_date: {
         type: Date,

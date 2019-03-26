@@ -1,55 +1,74 @@
-<h1>Formulario de registro</h1>
+<% include partials/header %>
 
-<form action="/register" method="POST">
-    <label for="">Email:
-        <input type="text" name="username" placeholder="Usuario">
-    </label>
-    <label for="">Apodo:
-        <input type="text" name="nickname" placeholder="Apodo"><br>
-    </label>
-    <label for="">Clave:
-        <input type="text" id="password" name="password" placeholder="Clave" onkeyup='check()'>
-    </label>
-    <label for="">Clave:
-        <input type="text" id="confirm_password" name="confirm_password" placeholder="Repita su clave" onkeyup='check()'>
-    </label><br>
-    <label for="">Nombre:
-        <input type="text" name="firstName" placeholder="Nombre">
-    </label>
-    <label for="">Apellido:
-        <input type="text" name="lastName" placeholder="Apellido">
-    </label><br>
-    <label for="">Pais:
-        <input type="text" name="country" placeholder="Pais">
-    </label>
-    <span id='message'></span>
 
-    <!-- <label>password :
-        <input name="password" id="password" type="password" onkeyup='check();' />
-    </label>
-    <br>
-    <label>confirm password:
-        <input type="password" name="confirm_password" id="confirm_password"  onkeyup='check();' /> 
-        <span id='message'></span>
-    </label> -->
 
-        <!-- <input type="number" placeholder="Ano de nacimiento">
-    <input type="text" placeholder="Profesion/Oficio/Ocupación"><br>
-    <input type="text" placeholder="Telefono de contacto">
-    <input type="url" placeholder="Facebook/Twitter (Link)"><br>
-    <input type="text" placeholder="Otra red social (Link)">
-    <input type="text" placeholder="Cedula de Identidad"><br>
-    <select>
-        <option value="" selected disabled hidden>Elige tu Idiologia</option>
-        <option value="Liberal">Liberal</option>
-        <option value="Minarquista">Minarquista</option>
-        <option value="Ancap">Anarco-capitalista</option>
-        <option value="Otro">Otro</option>
-    </select>
-    <input type="text" placeholder="Has participado en otras organizaciones?"><br> -->
-    <br><button>Registrarse</button>
+<div class="ui container">
+    <h1>Formulario de registro</h1> <br>
+    <div class="ui form">
+        <div class="">
+            <form action="/register" method="POST">
+                <label for="" class="four wide column">Email:
+                    <input type="text" name="username" placeholder="Email" required>
+                </label>
+                <label for="">Apodo:
+                    <input type="text" name="nickname" placeholder="Apodo" required><br>
+                </label>
+                <label for="">Clave:
+                    <input type="text" id="password" name="password" placeholder="Clave" onkeyup='check()' required>
+                </label>
+                <label for="">Clave:
+                    <input type="text" id="confirm_password" name="confirm_password" placeholder="Repita su clave" onkeyup='check()'>
+                </label><br>
+                <label for="">Nombre:
+                    <input type="text" name="firstName" placeholder="Nombre" required>
+                </label>
+                <label for="">Apellido:
+                    <input type="text" name="lastName" placeholder="Apellido" required>
+                </label><br>
+                <label for="">Pais:
+                    <input type="text" name="country" placeholder="Pais" required>
+                </label>
+                <label for="">Estado:
+                    <input type="text" name="state" placeholder="Estado" required>
+                </label>
+                <label for="">Año de nacimiento: 
+                <input type="number" name="nacimiento" placeholder="Año de nacimiento"  required>
+                </label>
+                <label for="">Profesion/Oficio/Ocupación
+                <input type="text" name="profesion" placeholder="Profesion/Oficio/Ocupación" required><br>
+                </label>
+                <label for="">Telefono de contacto
+                <input type="text" name="telefono" placeholder="Telefono de contacto" required>
+                </label>
+                <label for="">Facebook/Twitter (Link)
+                <input type="url" name="redSocial1" placeholder="Facebook/Twitter (Link)" required><br>
+                </label>
+                <label for="">Otra red social (Link)
+                <input type="text" name="redSocial2" placeholder="Otra red social (Link)">
+                </label>
+                <label for="">Cedula de Identidad
+                <input type="text" name="cedula" placeholder="Cedula de Identidad" required><br>
+                </label>
+                <label for="">Elige tu Idiologia:
+                <select name="ideologia" required>
+                    <option value="" selected disabled hidden>Elige tu Idiologia:</option>
+                    <option value="Liberal">Liberal</option>
+                    <option value="Minarquista">Minarquista</option>
+                    <option value="Ancap">Anarco-capitalista</option>
+                    <option value="Otro">Otro</option>
+                </select>
+                </label>
+                <label for="">Has participado en otras organizaciones?
+                <input type="text" name="otras" placeholder="Has participado en otras organizaciones?"><br>
+                </label>
+                <br><button class="ui primary button">Registrarse</button>
+            </form>
+        </div>
+        <br>
+        <a href="/"><button class="ui button">Atras</button></a>
+    </div>
+</div>
 
-<br>
-<a href="/">Atras</a>
 
-</form>
+
+<% include partials/footer %>
