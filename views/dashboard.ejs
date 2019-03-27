@@ -7,6 +7,11 @@ span{
 </style>
 
 <div class="ui container">
+    <h1 lass="title">Noticias</h1>
+    <p>Hola chicos. Acabo de activar la seguridad y les di a todos nivel 3 (IT). Tienen acceso a toda la pagina.</p>
+    <p>Los niveles son: 0 para miembro no verificado, 1 para el miembro normal, 2 para coordinadores. El 3 es especial para los que trabajen en la pagina.</p>
+    <p>Si quieren ver lo que ve un nivel 0 o 1, abran una cuenta falsa y entren con ella.</p>
+    <p>Joji</p>
     <h1 class="title">Espacio personal </h1>
     <div class="ui centered grid">
         <div class="row">
@@ -32,7 +37,7 @@ span{
     </div>
 
 
-    <% if (loggedUser && loggedUser.level===0) { %>
+    <% if (loggedUser && loggedUser.level>=2) { %>
     <h1 class="title">Coordinadores</h1>    
 
     <div class="ui centered grid" >

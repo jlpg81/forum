@@ -13,12 +13,18 @@ p {
     <h3>Informacion personal de: <%= User.firstName %> <%= User.lastName %></h3>
     <div class="ui form">
         <form method="POST">
-            <p>Nombre: </p><input type="text" name=firstName value=<%= User.firstName %>>
-            <p>Apellido: </p><input type="text" name=lastName value=<%= User.lastName %>><br>
-            <p>Email: </p><input type="text" name=username value=<%= User.username %>>
-            <p>Pais: </p><input type="text" name=country value=<%= User.country %>><br>
-            <p>Estado: </p><input type="text" name=state value=<%= User.state %>>
-            <p>Nivel: </p><input type="text" value=<%= User.level %>><br>
+            <p>Nombre: </p><input type="text" name=firstName required value=<%= User.firstName %>>
+            <p>Apellido: </p><input type="text" name=lastName required value=<%= User.lastName %>><br>
+            <p>Email: </p><input type="text" name=username required value=<%= User.username %>>
+            <p>Pais: </p><input type="text" name=country required value=<%= User.country %>><br>
+            <p>Estado: </p><input type="text" name=state required value=<%= User.state %>>
+            <p>Año de Nacimiento: </p><input type="text" required name=nacimiento value=<%= User.nacimiento %>><br>
+            <p>Profesion/Ocupacion: </p><input type="text" required name=profesion value=<%= User.profesion %>><br>
+            <p>Telefono: </p><input type="text" name=telefono required value=<%= User.telefono %>><br>
+            <p>Red Social 1: </p><input type="text" name=redSocial1 required value=<%= User.redSocial1 %>><br>
+            <p>Red Social 2: </p><input type="text" name=redSocial2 value=<%= User.redSocial2 %>><br>
+            <p>Cedula de Identidad: </p><input type="text" name=cedula required value=<%= User.cedula %>><br>
+            <p>Nivel de Seguridad: </p><input type="text" name=level required value=<%= User.level %>>
             <button class="ui primary button">Modificar</button>
         </form>
     </div>

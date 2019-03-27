@@ -60,6 +60,7 @@ app.post('/register', function(req, res){
         state: req.body.state,
         nacimiento: req.body.nacimiento,
         profesion: req.body.profesion,
+        telefono: req.body.telefono,
         redSocial1: req.body.redSocial1,
         redSocial2: req.body.redSocial2,
         cedula: req.body.cedula,
@@ -167,20 +168,6 @@ app.post('/forum/:section/new', isUser, function(req, res){
 
 // Route to view posts
 
-// este codigo por alguna razon me da un error al entrar a forum/:section...
-//{ CastError: Cast to ObjectId failed for value "mlv.js" at path "_id" for model "Post"
-// app.get('/forum/:section/:id', isUser, function(req, res){
-//     Post.find({ _id: req.params.id, section: req.params.section }, (err, Post)=>{
-//         if (err){
-//             console.log(err)
-//         } else {
-//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
-//                 res.render('forum/posts', {Post, Comment})
-//             })
-//         }
-//     })
-// });
-
 app.get('/forum/:section/:id', isUser, function(req, res){
     Post.findById({ _id: req.params.id }, (err, Post)=>{
         if (err){
@@ -192,114 +179,6 @@ app.get('/forum/:section/:id', isUser, function(req, res){
         }
     })
 });
-
-// app.get('/forum/general/:id', isUser, function(req, res){
-//     Post.findById({ _id: req.params.id }, (err, Post)=>{
-//         if (err){
-//             console.log(err)
-//         } else {
-//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
-//                 res.render('forum/posts', {Post, Comment})
-//             })
-//         }
-//     })
-// });
-
-// app.get('/forum/activismo/:id', isUser, function(req, res){
-//     Post.findById({ _id: req.params.id }, (err, Post)=>{
-//         if (err){
-//             console.log(err)
-//         } else {
-//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
-//                 res.render('forum/posts', {Post, Comment})
-//             })
-//         }
-//     })
-// });
-
-// app.get('/forum/libertarimo/:id', isUser, function(req, res){
-//     Post.findById({ _id: req.params.id }, (err, Post)=>{
-//         if (err){
-//             console.log(err)
-//         } else {
-//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
-//                 res.render('forum/posts', {Post, Comment})
-//             })
-//         }
-//     })
-// });
-
-// app.get('/forum/formacion/:id', isUser, function(req, res){
-//     Post.findById({ _id: req.params.id }, (err, Post)=>{
-//         if (err){
-//             console.log(err)
-//         } else {
-//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
-//                 res.render('forum/posts', {Post, Comment})
-//             })
-//         }
-//     })
-// });
-
-// app.get('/forum/proyectos/:id', isUser, function(req, res){
-//     Post.findById({ _id: req.params.id }, (err, Post)=>{
-//         if (err){
-//             console.log(err)
-//         } else {
-//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
-//                 res.render('forum/posts', {Post, Comment})
-//             })
-//         }
-//     })
-// });
-
-// app.get('/forum/voluntariado/:id', isUser, function(req, res){
-//     Post.findById({ _id: req.params.id }, (err, Post)=>{
-//         if (err){
-//             console.log(err)
-//         } else {
-//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
-//                 res.render('forum/posts', {Post, Comment})
-//             })
-//         }
-//     })
-// });
-
-// app.get('/forum/sugerencias/:id', isUser, function(req, res){
-//     Post.findById({ _id: req.params.id }, (err, Post)=>{
-//         if (err){
-//             console.log(err)
-//         } else {
-//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
-//                 res.render('forum/posts', {Post, Comment})
-//             })
-//         }
-//     })
-// });
-
-// app.get('/forum/intranet/:id', isUser, function(req, res){
-//     Post.findById({ _id: req.params.id }, (err, Post)=>{
-//         if (err){
-//             console.log(err)
-//         } else {
-//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
-//                 res.render('forum/posts', {Post, Comment})
-//             })
-//         }
-//     })
-// });
-
-// app.get('/forum/offtopic/:id', isUser, function(req, res){
-//     Post.findById({ _id: req.params.id }, (err, Post)=>{
-//         if (err){
-//             console.log(err)
-//         } else {
-//             Comment.find({ parent: req.params.id }, (err, Comment)=>{
-//                 res.render('forum/posts', {Post, Comment})
-//             })
-//         }
-//     })
-// });
 
 // Route to post a new comment
 
@@ -367,21 +246,21 @@ function isLoggedIn(req, res, next){
 };
 
 function isUser(req, res, next){
-    if(req.user.level>=0){
+    if(req.user.level>=1){
         return next();
     }
     res.redirect('/denied')
 };
 
 function isAdmin(req, res, next){
-    if(req.user.level>=0){
+    if(req.user.level>=2){
         return next();
     }
     res.redirect('/denied')
 };
 
 function isIT(req, res, next){
-    if(req.user.level>=0){
+    if(req.user.level>=3){
         return next();
     }
     res.redirect('/denied')
