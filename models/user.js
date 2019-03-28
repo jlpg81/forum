@@ -29,6 +29,9 @@ const UserSchema = new mongoose.Schema({
     profesion: {
         type: String,
     },
+    telefono: {
+        type: String,
+    },
     redSocial1: {
         type: String,
     },

@@ -1,0 +1,10 @@
+<% include partials/header %>
+
+<div class="ui container">
+    <p>Esta seguro que desea eliminar el usuario: </p>
+    <p><%= User.username %> / <%= User.nickname %> / <%= User.firstName %> <%= User.lastName %></p>
+    <form action="" method="POST"><button class="ui red button">Eliminar</button> </form>
+    <button class="ui button" onclick="javascript:history.back()">Regresar</button>
+</div>
+
+<% include partials/footer %>

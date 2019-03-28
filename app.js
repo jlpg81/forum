@@ -100,7 +100,7 @@ app.get('/admin', isAdmin, function(req, res){
     res.render('admin', { loggedUser : req.user })
 });
 
-app.get('/admin/members', isAdmin, function(req, res){
+app.get('/members', isAdmin, function(req, res){
     User.find({}, (err, User) => {
         if (err) {
             res.send(err);
@@ -109,7 +109,7 @@ app.get('/admin/members', isAdmin, function(req, res){
     })
 });
 
-app.get('/admin/members/:id', isAdmin, function(req,res){
+app.get('/members/:id', isAdmin, function(req,res){
     User.findById(req.params.id, (err, User) => {
         if (err) {
             res.send(err);
@@ -117,12 +117,32 @@ app.get('/admin/members/:id', isAdmin, function(req,res){
         res.render('account', {User} )});
 });
 
-app.post('/admin/members/:id', isAdmin, function (req, res){
+app.post('/members/:id', isAdmin, function (req, res){
     User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: false }, (err, User) => {
         if (err) {
             res.send(err);
         }
         res.render('updated');
+    })
+});
+
+// Deleting accounts
+
+app.get('/members/:id/delete', isAdmin, function (req, res){
+    User.findById({ _id: req.params.id }, req.body, { new: false }, (err, User) => {
+        if (err) {
+            res.send(err);
+        }
+        res.render('delete', {User});
+    })
+});
+
+app.post('/members/:id/delete', isAdmin, function (req, res){
+    User.findByIdAndDelete({ _id: req.params.id }, (err, User) => {
+        if (err) {
+            res.send(err);
+        }
+        res.render('dashboard', { loggedUser : req.user });
     })
 });
 
@@ -203,7 +223,7 @@ app.post('/forum/:section/:id', isUser, function(req, res){
 
 ///////////////////////////////////// End of forum routes
 
-app.post('/admin/members/:id', isAdmin, function (req, res){
+app.post('/members/:id', isAdmin, function (req, res){
     User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: false }, (err, User) => {
         if (err) {
             res.send(err);
@@ -221,7 +241,7 @@ app.get('/logout', function(req, res){
     res.redirect('/')
 });
 
-app.get('/:user', isLoggedIn, function(req, res){
+app.get('/account', isLoggedIn, function(req, res){
     User.findById(req.user._id, (err, User) => {
         if (err) {
             res.send(err);
@@ -229,7 +249,7 @@ app.get('/:user', isLoggedIn, function(req, res){
         res.render('account', {User} )});
 });
 
-app.post('/:user', isLoggedIn, function(req, res){
+app.post('/account', isLoggedIn, function(req, res){
     User.findByIdAndUpdate({ _id: req.user._id }, req.body, { new: false }, (err, User) => {
         if (err) {
             res.send(err);

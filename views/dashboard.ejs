@@ -12,10 +12,14 @@ span{
     <p>Los niveles son: 0 para miembro no verificado, 1 para el miembro normal, 2 para coordinadores. El 3 es especial para los que trabajen en la pagina.</p>
     <p>Si quieren ver lo que ve un nivel 0 o 1, abran una cuenta falsa y entren con ella.</p>
     <p>Joji</p>
+    <p>Roles actuales</p>
+    <p>Thakar: Mejorar el formulario de ingreso.</p>
+    <p>Josias: Anadir un password recovery.</p>
+    <p>Sherin: Waiting for you to decide what you want to help in :)</p>
     <h1 class="title">Espacio personal </h1>
     <div class="ui centered grid">
         <div class="row">
-            <a href="/<%= loggedUser._id %>">
+            <a href="/account">
                 <div class="ui raised two wide column segment" id="dashicon">
                     <i class="id card outline icon massive"></i> <br><br>
                     <span>Datos personales</span>
@@ -37,12 +41,12 @@ span{
     </div>
 
 
-    <% if (loggedUser && loggedUser.level>=2) { %>
+    <% if (loggedUser.level>=2) { %>
     <h1 class="title">Coordinadores</h1>    
 
     <div class="ui centered grid" >
         <div class="row" >
-            <a href="/admin/members" id="dashicon">
+            <a href="/members" id="dashicon">
                 <div class="ui raised two wide column segment">
                     <i class="key icon massive floated"></i> <br><br>
                     <span>Listado de<br>Miembros</span> 

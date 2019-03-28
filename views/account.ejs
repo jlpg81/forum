@@ -28,7 +28,8 @@ p {
             <button class="ui primary button">Modificar</button>
         </form>
     </div>
-    <a href="/admin/members"><button class="ui button">Regresar</button></a>
+    <a href="/members/<%= User._id %>/delete"><button class="ui button red">Eliminar</button></a> <br>
+    <button class="ui button" onclick="javascript:history.back()">Regresar</button>
 </div>
 
 
