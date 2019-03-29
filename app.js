@@ -5,7 +5,7 @@ const   express                 = require('express'),
         methodOverride          = require('method-override'),
         User                    = require('./models/user'),
         mainRoutes              = require('./routes/main');
-        forumRoutes              = require('./routes/forum');
+        forumRoutes             = require('./routes/forum');
 
 var PORT = 3002;
 
