@@ -9,9 +9,28 @@ const   express                 = require('express'),
         adminRoutes             = require('./routes/adminRoutes'),
         forumRoutes             = require('./routes/forumRoutes');
 
+
+//This file doesnt do jack yet..
+
 module.exports = {
-    findById: findById(req.user._id, (err, User) => {
+    UserFindById: User.findById(req.user._id, (err, User) => {
     if (err) {
         res.send(err)};
     })
+}
+
+export const UserFindById = (req, res) => {
+    User.findById(req.user._id, (err, User) => {
+        if (err) {
+            res.send(err)};
+        })
+    }
+
+export const getContactWithID = (req, res) => {
+    Contact.findById(req.params.contactId, (err, contact) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(contact);
+    });
 }

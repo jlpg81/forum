@@ -2,7 +2,8 @@ const   express     = require('express'),
         passport    = require('passport'),
         nodemailer  = require('nodemailer'),
         User        = require('../models/user'),
-        security    = require('../controllers/securityFunctions')
+        security    = require('../controllers/securityFunctions'),
+        // emailToMLV  = require('../comms/emailformlv'),
         router      = express.Router();
 
 router.get('/register', function(req, res){
@@ -10,9 +11,6 @@ router.get('/register', function(req, res){
 });
 
 // Nodemailer Setup
-// router.post('/register', (req, res) => {
-    
-
 router.post('/register', function(req, res){
     User.register(new User({
         username: req.body.username,
@@ -39,10 +37,6 @@ router.post('/register', function(req, res){
             const output = `
             <h3>Un nuevo miembro se ha inscrito en el MLV:</h3>
             <ul>
-              <li>Name: ${req.body.username}</li>
-              <li>Company: ${req.body.nickname}</li>
-              <li>Email: ${req.body.firstName}</li>
-              <li>Phone: ${req.body.lastName}</li>
               <li>username: ${req.body.username}</li>
               <li>nickname: ${req.body.nickname}</li> 
               <li>firstName: ${req.body.firstName}</li>
@@ -75,7 +69,7 @@ router.post('/register', function(req, res){
           // setup email data with unicode symbols
           let mailOptions = {
               from: '"MLV Intranet Admin" <it@mlv-intranet.org>', // sender address
-              to: 'jlpg81@gmail.com', // list of receivers
+              to: 'movi.libertariovzla@gmail.com', // list of receivers
               subject: 'Nuevo Miembro', // Subject line
               html: output // html body
           };
@@ -86,7 +80,48 @@ router.post('/register', function(req, res){
               }
               console.log('Message sent: %s', info.messageId);   
               console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-              res.render('success');
+              passport.authenticate('local')(req,res, function(){
+                const output2 = `
+                <h3>Bienvenido al MLV</h3>
+                <p> Estimado ${req.body.firstName}, </p>
+                <p> Agradecemos tu interes por unirte a la red libertaria mas grande de Venezuela. </p>
+                <p> Por cuestiones de seguridad, pronto seras contactado por un coordinador para verificar tu identidad. 
+                La inscripcion no sera efectiva hasta realizada esta operacion. 
+                Puedes verificar y actualizar tus datos entrando a tu perfil personal en el intranet.</p>
+                <p> </p>
+                <p> Atentamente,</p>
+                <p> La coordinacion nacional.</p>
+              `;
+              // create reusable transporter object using the default SMTP transport
+              let transporter = nodemailer.createTransport({
+                host: 'smtp.ionos.es',
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                auth: {
+                    user: 'it@mlv-intranet.org', // generated ethereal user
+                    pass: 'supersecret'  // generated ethereal password
+                },
+                tls:{
+                  rejectUnauthorized:false
+                }
+              });
+              // setup email data with unicode symbols
+              let mailOptions = {
+                  from: '"MLV Intranet Admin" <it@mlv-intranet.org>', // sender address
+                  to: "jlpg81@gmail.com", //`${req.body.firstName}`, // list of receivers
+                  subject: 'Bienvenido al MLV', // Subject line
+                  html: output2 // html body
+              };
+              // send mail with defined transport object
+              transporter.sendMail(mailOptions, (error, info) => {
+                  if (error) {
+                      return console.log(error);
+                  }
+                  console.log('Message sent: %s', info.messageId);   
+                  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                  res.render('success');
+              });
+            })
           });
         })
     });
