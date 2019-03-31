@@ -1,18 +1,9 @@
 const   express     = require('express'),
         passport    = require('passport'),
-        Post        = require('../models/post'),
-        Comment     = require('../models/comment'),
         nodemailer  = require('nodemailer'),
         User        = require('../models/user'),
+        security    = require('../controllers/securityFunctions')
         router      = express.Router();
-
-router.get('/', function(req, res){
-    res.render('home');
-});
-
-router.get('/denied', function(req, res){
-    res.render('denied');
-});
 
 router.get('/register', function(req, res){
     res.render('register');
@@ -104,139 +95,5 @@ router.post('/register', function(req, res){
 router.get('/success', function(req, res){
     res.render('success');
 });
-
-router.post('/login', passport.authenticate('local', {
-    successRedirect: "/dashboard",
-    failureRedirect: "/"
-}),function(req, res){
-});
-
-// app.get('/dashboard', isLoggedIn, function(req, res){
-//     res.send(req.user)
-// });
-
-router.get('/dashboard', isLoggedIn, function(req, res){
-    res.render('dashboard', { loggedUser : req.user })
-});
-
-router.get('/admin', isAdmin, function(req, res){
-    res.render('admin', { loggedUser : req.user })
-});
-
-router.get('/members', isAdmin, function(req, res){
-    User.find({}, (err, User) => {
-        if (err) {
-            res.send(err);
-        }
-        res.render('members', {User});
-    })
-});
-
-router.get('/members/:id', isAdmin, function(req,res){
-    User.findById(req.params.id, (err, User) => {
-        if (err) {
-            res.send(err);
-        }
-        res.render('account', {User} )});
-});
-
-router.post('/members/:id', isAdmin, function (req, res){
-    User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: false }, (err, User) => {
-        if (err) {
-            res.send(err);
-        }
-        res.render('updated');
-    })
-});
-
-// Deleting accounts
-
-router.get('/members/:id/delete', isAdmin, function (req, res){
-    User.findById({ _id: req.params.id }, req.body, { new: false }, (err, User) => {
-        if (err) {
-            res.send(err);
-        }
-        res.render('delete', {User});
-    })
-});
-
-router.post('/members/:id/delete', isAdmin, function (req, res){
-    User.findByIdAndDelete({ _id: req.params.id }, (err, User) => {
-        if (err) {
-            res.send(err);
-        }
-        res.render('dashboard', { loggedUser : req.user });
-    })
-});
-
-//forum routes were here
-
-router.post('/members/:id', isAdmin, function (req, res){
-    User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: false }, (err, User) => {
-        if (err) {
-            res.send(err);
-        }
-        res.render('updated');
-    })
-});
-
-router.get('/chat', isUser, function(req, res){
-    res.render('chat')
-});
-
-router.get('/logout', function(req, res){
-    req.logout();
-    res.redirect('/')
-});
-
-router.get('/account', isLoggedIn, function(req, res){
-    User.findById(req.user._id, (err, User) => {
-        if (err) {
-            res.send(err);
-        }
-        res.render('account', {User} )});
-});
-
-router.post('/account', isLoggedIn, function(req, res){
-    User.findByIdAndUpdate({ _id: req.user._id }, req.body, { new: false }, (err, User) => {
-        if (err) {
-            res.send(err);
-        }
-        res.render('updated');
-    })
-});
-
-
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect('/')
-};
-
-function isUser(req, res, next){
-    if(req.user.level>=1){
-        return next();
-    }
-    res.redirect('/denied')
-};
-
-function isAdmin(req, res, next){
-    if(req.user.level>=2){
-        return next();
-    }
-    res.redirect('/denied')
-};
-
-function isIT(req, res, next){
-    if(req.user.level>=3){
-        return next();
-    }
-    res.redirect('/denied')
-};
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
 module.exports = router;

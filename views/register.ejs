@@ -1,23 +1,21 @@
 <% include partials/header %>
 
-
-
 <div class="ui container">
     <h1>Formulario de registro</h1> <br>
     <div class="ui form">
-        <div class="">
-            <form action="/register" method="POST">
-                <label for="" class="four wide column">Email:
-                    <input type="text" name="username" placeholder="Email" required>
+        <form action="/register" method="POST">
+            <div class="ui grid"></div>
+                <label for="" class="">Email:
+                <input class="four wide column"ype="email" name="username" placeholder="Email" required>
                 </label>
                 <label for="">Apodo:
                     <input type="text" name="nickname" placeholder="Apodo" required><br>
                 </label>
                 <label for="">Clave:
-                    <input type="text" id="password" name="password" placeholder="Clave" onkeyup='check()' >
+                    <input type="password" id="password" name="password" placeholder="Contraseña" onkeyup='check()' required>
                 </label>
                 <label for="">Clave:
-                    <input type="text" id="confirm_password" name="confirm_password" placeholder="Repita su clave" onkeyup='check()'>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Repita su contraseña" onkeyup='check()'>
                 </label><br>
                 <label for="">Nombre:
                     <input type="text" name="firstName" placeholder="Nombre" required>
@@ -26,31 +24,31 @@
                     <input type="text" name="lastName" placeholder="Apellido" required>
                 </label><br>
                 <label for="">Pais:
-                    <input type="text" name="country" placeholder="Pais" >
+                    <input type="text" name="country" placeholder="País" required>
                 </label>
                 <label for="">Estado:
-                    <input type="text" name="state" placeholder="Estado" >
+                    <input type="text" name="state" placeholder="Estado/Provincia/Departamento" required>
                 </label>
                 <label for="">Año de nacimiento: 
-                <input type="number" name="nacimiento" placeholder="Año de nacimiento"  >
+                <input type="date" name="nacimiento" placeholder="Año de nacimiento"  required>
                 </label>
                 <label for="">Profesion/Oficio/Ocupación
-                <input type="text" name="profesion" placeholder="Profesion/Oficio/Ocupación" ><br>
+                <input type="text" name="profesion" placeholder="Profesión/Oficio/Ocupación" required><br>
                 </label>
                 <label for="">Telefono de contacto
-                <input type="text" name="telefono" placeholder="Telefono de contacto" >
+                <input type="tel" name="telefono" placeholder="Teléfono de contacto" required>
                 </label>
                 <label for="">Facebook/Twitter (Link)
-                <input type="url" name="redSocial1" placeholder="Facebook/Twitter (Link)" ><br>
+                <input type="url" name="redSocial1" placeholder="Facebook/Twitter (Link)" required><br>
                 </label>
                 <label for="">Otra red social (Link)
-                <input type="text" name="redSocial2" placeholder="Otra red social (Link)">
+                <input type="url" name="redSocial2" placeholder="Otra red social (Link)">
                 </label>
                 <label for="">Cedula de Identidad
-                <input type="text" name="cedula" placeholder="Cedula de Identidad" ><br>
+                <input type="number" max="99999999" min="0" name="cedula" placeholder="Cédula de Identidad" required><br>
                 </label>
                 <label for="">Elige tu Idiologia:
-                <select name="ideologia" >
+                <select name="ideologia" required>
                     <option value="" selected disabled hidden>Elige tu Idiologia:</option>
                     <option value="Liberal">Liberal</option>
                     <option value="Minarquista">Minarquista</option>
@@ -62,8 +60,9 @@
                 <input type="text" name="otras" placeholder="Has participado en otras organizaciones?"><br>
                 </label>
                 <br><button class="ui primary button">Registrarse</button>
-            </form>
-        </div>
+            </div>
+        </form>
+
         <br>
         <a href="/"><button class="ui button">Atras</button></a>
     </div>
