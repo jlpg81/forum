@@ -35,7 +35,7 @@ router.get('/account', security.isLoggedIn, function(req, res){
 });
 
 router.post('/account', security.isLoggedIn, function(req, res){
-    User.findByIdAndUpdate({ _id: req.user._id }, req.body, { new: false }, (err, User) => {
+    User.findOneAndUpdate({ _id: req.user._id }, req.body, { new: false }, (err, User) => {
         if (err) {
             res.send(err);
         }

@@ -4,14 +4,15 @@ const   express     = require('express'),
         router      = express.Router();
 
 
-router.get('/admin', security.isAdmin, function(req, res){
-    res.render('admin', { loggedUser : req.user })
-});
+// router.get('/admin', security.isAdmin, function(req, res){
+//     res.render('admin', { loggedUser : req.user })
+// });
 
 router.get('/members', security.isAdmin, function(req, res){
     User.find({}, (err, User) => {
         if (err) {
-            res.send(err);
+            console.log('err');
+            res.render('error');
         }
         res.render('members', {User});
     })
@@ -26,7 +27,7 @@ router.get('/members/:id', security.isAdmin, function(req,res){
 });
 
 router.post('/members/:id', security.isAdmin, function (req, res){
-    User.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: false }, (err, User) => {
+    User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: false }, (err, User) => {
         if (err) {
             res.send(err);
         }

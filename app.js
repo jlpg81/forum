@@ -43,6 +43,11 @@ app.use(registryRoutes);
 app.use(forumRoutes);
 app.use(adminRoutes);
 
+app.get('*/*/*', function(req, res){
+    res.render('404')
+});
+
+
 // code to check passwords is in: http://jsfiddle.net/aelor/F6sEv/324/
 
 //Server setup

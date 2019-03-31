@@ -69,7 +69,7 @@ router.post('/register', function(req, res){
           // setup email data with unicode symbols
           let mailOptions = {
               from: '"MLV Intranet Admin" <it@mlv-intranet.org>', // sender address
-              to: 'movi.libertariovzla@gmail.com', // list of receivers
+              to: ['jlpg81@gmail.com','movi.libertariovzla@gmail.com'], // list of receivers
               subject: 'Nuevo Miembro', // Subject line
               html: output // html body
           };
@@ -78,8 +78,7 @@ router.post('/register', function(req, res){
               if (error) {
                   return console.log(error);
               }
-              console.log('Message sent: %s', info.messageId);   
-              console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+              console.log('Message sent: %s', info.messageId);
               passport.authenticate('local')(req,res, function(){
                 const output2 = `
                 <h3>Bienvenido al MLV</h3>
@@ -108,7 +107,7 @@ router.post('/register', function(req, res){
               // setup email data with unicode symbols
               let mailOptions = {
                   from: '"MLV Intranet Admin" <it@mlv-intranet.org>', // sender address
-                  to: "jlpg81@gmail.com", //`${req.body.firstName}`, // list of receivers
+                  to: `${req.body.firstName}`, // list of receivers
                   subject: 'Bienvenido al MLV', // Subject line
                   html: output2 // html body
               };
@@ -117,8 +116,7 @@ router.post('/register', function(req, res){
                   if (error) {
                       return console.log(error);
                   }
-                  console.log('Message sent: %s', info.messageId);   
-                  console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+                  console.log('Message sent: %s', info.messageId);
                   res.render('success');
               });
             })
