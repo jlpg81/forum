@@ -3,7 +3,6 @@ const   express     = require('express'),
         nodemailer  = require('nodemailer'),
         User        = require('../models/user'),
         security    = require('../controllers/securityFunctions'),
-        // emailToMLV  = require('../comms/emailformlv'),
         router      = express.Router();
 
 router.get('/register', function(req, res){
@@ -34,7 +33,7 @@ router.post('/register', function(req, res){
             return res.render('register');
         }
         passport.authenticate('local')(req,res, function(){
-            const output = `
+            var output = `
             <h3>Un nuevo miembro se ha inscrito en el MLV:</h3>
             <ul>
               <li>username: ${req.body.username}</li>
@@ -60,7 +59,7 @@ router.post('/register', function(req, res){
             secure: false, // true for 465, false for other ports
             auth: {
                 user: 'it@mlv-intranet.org', // generated ethereal user
-                pass: 'supersecret'  // generated ethereal password
+                pass: 'Qwer1234.'  // generated ethereal password
             },
             tls:{
               rejectUnauthorized:false
@@ -80,7 +79,7 @@ router.post('/register', function(req, res){
               }
               console.log('Message sent: %s', info.messageId);
               passport.authenticate('local')(req,res, function(){
-                const output2 = `
+                var output2 = `
                 <h3>Bienvenido al MLV</h3>
                 <p> Estimado ${req.body.firstName}, </p>
                 <p> Agradecemos tu interes por unirte a la red libertaria mas grande de Venezuela. </p>
@@ -98,7 +97,7 @@ router.post('/register', function(req, res){
                 secure: false, // true for 465, false for other ports
                 auth: {
                     user: 'it@mlv-intranet.org', // generated ethereal user
-                    pass: 'supersecret'  // generated ethereal password
+                    pass: 'Qwer1234.'  // generated ethereal password
                 },
                 tls:{
                   rejectUnauthorized:false

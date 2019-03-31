@@ -5,13 +5,13 @@ const   express     = require('express'),
         security    = require('../controllers/securityFunctions')
         router      = express.Router();
 
-router.get('/forum', security.isUser, function(req, res){
+router.get('/forum', [security.isLoggedIn,security.isUser], function(req, res){
     res.render('forum')
 });
 
 // Main forum routes
 
-router.get('/forum/:section', security.isUser, function(req, res){
+router.get('/forum/:section', [security.isLoggedIn,security.isUser], function(req, res){
     Post.find({ section: req.params.section}, (err, Post) => {
         res.render('forum/'+req.params.section, {Post, User})
     })
@@ -20,13 +20,13 @@ router.get('/forum/:section', security.isUser, function(req, res){
 // Route creating new posts
 
 
-router.get('/forum/:section/new', security.isUser, function(req, res){
+router.get('/forum/:section/new', [security.isLoggedIn,security.isUser], function(req, res){
     res.render('forum/new', {Section: capitalizeFirstLetter(req.params.section), section: req.params.section })
 });
 
 // routes to send new post info to server
 
-router.post('/forum/:section/new', security.isUser, function(req, res){
+router.post('/forum/:section/new', [security.isLoggedIn,security.isUser], function(req, res){
     Post.create({
         title: req.body.title,
         section: req.params.section,
@@ -40,7 +40,7 @@ router.post('/forum/:section/new', security.isUser, function(req, res){
 
 // Route to view posts
 
-router.get('/forum/:section/:id', security.isUser, function(req, res){
+router.get('/forum/:section/:id', [security.isLoggedIn,security.isUser], function(req, res){
     Post.findById({ _id: req.params.id }, (err, Post)=>{
         if (err){
             console.log(err)
@@ -54,7 +54,7 @@ router.get('/forum/:section/:id', security.isUser, function(req, res){
 
 // Route to post a new comment
 
-router.post('/forum/:section/:id', security.isUser, function(req, res){
+router.post('/forum/:section/:id', [security.isLoggedIn,security.isUser], function(req, res){
     Comment.create({
         comment: req.body.comment,
         creator: req.user.nickname,
