@@ -5,7 +5,7 @@ const   express                 = require('express'),
         methodOverride          = require('method-override'),
         User                    = require('./models/user'),
         mainRoutes              = require('./routes/mainRoutes'),
-        registryRoutes          = require('./routes/registryRoutes'),
+        registryRoutes          = require('./routes/registry'),
         adminRoutes             = require('./routes/adminRoutes'),
         forumRoutes             = require('./routes/forumRoutes');
 

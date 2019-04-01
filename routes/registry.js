@@ -2,7 +2,6 @@ const   express     = require('express'),
         passport    = require('passport'),
         nodemailer  = require('nodemailer'),
         User        = require('../models/user'),
-        security    = require('../controllers/securityFunctions'),
         router      = express.Router();
 
 router.get('/register', function(req, res){
@@ -106,7 +105,7 @@ router.post('/register', function(req, res){
               // setup email data with unicode symbols
               let mailOptions = {
                   from: '"MLV Intranet Admin" <it@mlv-intranet.org>', // sender address
-                  to: `${req.body.firstName}`, // list of receivers
+                  to: `${req.body.username}`, // list of receivers
                   subject: 'Bienvenido al MLV', // Subject line
                   html: output2 // html body
               };

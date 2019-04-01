@@ -5,9 +5,10 @@ const   express                 = require('express'),
         methodOverride          = require('method-override'),
         User                    = require('../models/user'),
         mainRoutes              = require('../routes/mainRoutes'),
-        registryRoutes          = require('../routes/registryRoutes'),
+        registryRoutes          = require('../routes/registry'),
         adminRoutes             = require('../routes/adminRoutes'),
         security    = require('../controllers/securityFunctions'),
+        nodemailer  = require('nodemailer'),
         forumRoutes             = require('../routes/forumRoutes');
 
 
@@ -37,53 +38,50 @@ router.post('/members/:id', [security.isLoggedIn,security.isAdmin], function (re
         if (err) {
             res.send(err);
         }
-        passport.authenticate('local')(req,res, function(){
             var output = `
             <h3>Un miembro ha cambiado los datos de su cuenta:</h3>
-            <p>Cambiado por:  ${req.user.username} </p>
+            <p>Cambiado por:  ${req.user._id} / ${req.user.username} </p>
             <ul>
-              <li>username: ${req.body.username}</li>
-              <li>nickname: ${req.body.nickname}</li> 
-              <li>firstName: ${req.body.firstName}</li>
-              <li>lastName: ${req.body.lastName}</li>
-              <li>country: ${req.body.country}</li>
-              <li>state: ${req.body.state}</li>
-              <li>nacimiento: ${req.body.nacimiento}</li>
-              <li>profesion: ${req.body.profesion}</li>
-              <li>telefono: ${req.body.telefono}</li>
-              <li>redSocial1: ${req.body.redSocial1}</li>
-              <li>redSocial2: ${req.body.redSocial2}</li>
-              <li>cedula: ${req.body.cedula}</li>
-              <li>nivel: ${req.body.level}</li>
+                <li>username: ${req.body.username}</li>
+                <li>firstName: ${req.body.firstName}</li>
+                <li>lastName: ${req.body.lastName}</li>
+                <li>country: ${req.body.country}</li>
+                <li>state: ${req.body.state}</li>
+                <li>nacimiento: ${req.body.nacimiento}</li>
+                <li>profesion: ${req.body.profesion}</li>
+                <li>telefono: ${req.body.telefono}</li>
+                <li>redSocial1: ${req.body.redSocial1}</li>
+                <li>redSocial2: ${req.body.redSocial2}</li>
+                <li>cedula: ${req.body.cedula}</li>
+                <li>nivel: ${req.body.level}</li>
             </ul>`;
-          // create reusable transporter object using the default SMTP transport
-          let transporter = nodemailer.createTransport({
-            host: 'smtp.ionos.es',
-            port: 587,
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: 'it@mlv-intranet.org', // generated ethereal user
-                pass: 'Qwer1234.'  // generated ethereal password
-            },
-            tls:{
-              rejectUnauthorized:false
+            // create reusable transporter object using the default SMTP transport
+            let transporter = nodemailer.createTransport({
+                host: 'smtp.ionos.es',
+                port: 587,
+                secure: false, // true for 465, false for other ports
+                auth: {
+                    user: 'it@mlv-intranet.org', // generated ethereal user
+                    pass: 'Qwer1234.'  // generated ethereal password
+                },
+                tls:{
+                 rejectUnauthorized:false
             }
-          });
-          // setup email data with unicode symbols
-          let mailOptions = {
-              from: '"MLV Intranet Admin" <it@mlv-intranet.org>', // sender address
-              to: ['jlpg81@gmail.com','movi.libertariovzla@gmail.com'], // list of receivers
-              subject: 'Perfil cambiado - Admin', // Subject line
-              html: output // html body
-          };
-          // send mail with defined transport object
-          transporter.sendMail(mailOptions, (error, info) => {
-              if (error) {
-                  return console.log(error);
-              }
-              console.log('Message sent: %s', info.messageId);
-              res.render('updated');
-          });
+            });
+            // setup email data with unicode symbols
+            let mailOptions = {
+                from: '"MLV Intranet Admin" <it@mlv-intranet.org>', // sender address
+                to: ['jlpg81@gmail.com','movi.libertariovzla@gmail.com'], // list of receivers
+                subject: 'Perfil cambiado - Admin', // Subject line
+                html: output // html body
+            };
+            // send mail with defined transport object
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return console.log(error);
+                }
+                console.log('Message sent: %s', info.messageId);
+                res.render('updated');
         })
     })
 });
